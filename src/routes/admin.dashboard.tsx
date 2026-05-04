@@ -216,6 +216,12 @@ const FEATURE_OPTIONS = [
   "Reversing camera","Side airbags","Sound system","Traction Control","USB port",
 ];
 
+const SAFETY_FEATURE_OPTIONS = [
+  "Active head restraints","Adaptive headlights","Backup camera","Blind-spot warning",
+  "Brake assist","Forward-collision warning","Lane keeping assist","Parking assist systems",
+  "Pedestrian detection","Sideview camera",
+];
+
 function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; onClose: () => void; onSaved: () => void }) {
   const [form, setForm] = useState({
     make: car?.make ?? "",
@@ -235,11 +241,15 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
   });
   const [images, setImages] = useState<string[]>(car?.images ?? []);
   const [features, setFeatures] = useState<string[]>((car as any)?.features ?? []);
+  const [safetyFeatures, setSafetyFeatures] = useState<string[]>((car as any)?.safety_features ?? []);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const toggleFeature = (f: string) => {
     setFeatures((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]);
+  };
+  const toggleSafety = (f: string) => {
+    setSafetyFeatures((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]);
   };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -293,6 +303,7 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
       description: parsed.data.description || null,
       images,
       features,
+      safety_features: safetyFeatures,
       featured: form.featured,
       sold: form.sold,
     } as any;
@@ -410,8 +421,26 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
               })}
             </div>
           </div>
+          <div>
+            <label className={labelCls}>Safety Features</label>
+            <div className="flex flex-wrap gap-2">
+              {SAFETY_FEATURE_OPTIONS.map((f) => {
+                const active = safetyFeatures.includes(f);
+                return (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => toggleSafety(f)}
+                    className={`inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium transition ${active ? "bg-primary text-primary-foreground border-primary" : "bg-background border-border hover:border-primary"}`}
+                  >
+                    {f}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          
+
           <div className="flex flex-wrap gap-4">
             <label className="inline-flex items-center gap-2 text-sm">
               <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="h-4 w-4 rounded border-border" />

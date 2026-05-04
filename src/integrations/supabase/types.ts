@@ -31,6 +31,7 @@ export type Database = {
           mileage: number
           model: string
           price: number
+          safety_features: string[]
           sold: boolean
           transmission: string | null
           updated_at: string
@@ -52,6 +53,7 @@ export type Database = {
           mileage?: number
           model: string
           price: number
+          safety_features?: string[]
           sold?: boolean
           transmission?: string | null
           updated_at?: string
@@ -73,6 +75,7 @@ export type Database = {
           mileage?: number
           model?: string
           price?: number
+          safety_features?: string[]
           sold?: boolean
           transmission?: string | null
           updated_at?: string
