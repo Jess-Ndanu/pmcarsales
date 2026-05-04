@@ -8,8 +8,9 @@ export const formatPrice = (n: number) =>
 export const formatMiles = (n: number) =>
   new Intl.NumberFormat("en-US").format(n) + " km";
 
-export const DEALER_EMAIL = "sales@pmcarsales.co.ke";
-export const DEALER_PHONE = "0712 604 775";
+export const DEALER_EMAIL = "markmbithi969@gmail.com";
+export const DEALER_PHONE = "0721 861 621";
+export const DEALER_WHATSAPP = "254721861621";
 export const DEALER_ADDRESS = "Mombasa, Kenya";
 export const DEALER_NAME = "PM Car Sales";
 export const DEALER_TAGLINE = "Drive Your Dream";
