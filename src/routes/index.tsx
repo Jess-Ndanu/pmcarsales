@@ -5,7 +5,7 @@ import heroCar from "@/assets/hero-car.jpg";
 import { SiteLayout } from "@/components/SiteLayout";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CarCard } from "@/components/CarCard";
-import { BodyTypeFilters } from "@/components/BodyTypeFilters";
+
 import { Testimonials } from "@/components/Testimonials";
 import { SoldGallery } from "@/components/SoldGallery";
 import { Faq } from "@/components/Faq";
@@ -62,9 +62,6 @@ function HomePage() {
             <HeroSearch />
           </div>
 
-          <div className="mt-10 md:mt-14 fade-up-delay">
-            <BodyTypeFilters />
-          </div>
         </div>
       </section>
 
