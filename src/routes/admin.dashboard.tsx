@@ -438,8 +438,9 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
                 );
               })}
             </div>
+          </div>
 
-          
+
           <div className="flex flex-wrap gap-4">
             <label className="inline-flex items-center gap-2 text-sm">
               <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="h-4 w-4 rounded border-border" />
