@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-const MAKES = ["All Makes", "Audi", "BMW", "Daihatsu", "Ford", "Honda", "Mazda", "Mercedes-Benz", "Mitsubishi", "Nissan", "Peugeot", "Porsche", "Range Rover", "Subaru", "Toyota", "Volkswagen", "Volvo"];
+const MAKES = ["All Makes", "Audi", "BMW", "Daihatsu", "Ford", "Honda", "Mazda", "Mercedes-Benz", "Mitsubishi", "Nissan", "Peugeot", "Porsche", "Range Rover", "Subaru", "Suzuki", "Toyota", "Volkswagen", "Volvo"];
 
 const PRICES = [
   { label: "Max Price", value: "" },
