@@ -61,6 +61,31 @@ function InventoryPage() {
     setMaxMileage(search.maxMileage ?? "");
   }, [search]);
 
+  // Models for the selected make
+  const [models, setModels] = useState<string[]>([]);
+  const [loadingModels, setLoadingModels] = useState(false);
+  useEffect(() => {
+    if (!make) {
+      setModels([]);
+      return;
+    }
+    let cancelled = false;
+    setLoadingModels(true);
+    supabase
+      .from("cars")
+      .select("model")
+      .eq("make", make)
+      .then(({ data }) => {
+        if (cancelled) return;
+        const unique = Array.from(new Set((data ?? []).map((r) => r.model).filter(Boolean))).sort();
+        setModels(unique);
+        setLoadingModels(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [make]);
+
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
