@@ -1,14 +1,15 @@
 export const formatPrice = (n: number) =>
-  new Intl.NumberFormat("en-US", {
+  new Intl.NumberFormat("en-KE", {
     style: "currency",
-    currency: "USD",
+    currency: "KES",
     maximumFractionDigits: 0,
   }).format(n);
 
 export const formatMiles = (n: number) =>
-  new Intl.NumberFormat("en-US").format(n) + " mi";
+  new Intl.NumberFormat("en-US").format(n) + " km";
 
-export const DEALER_EMAIL = "sales@apexautos.com";
-export const DEALER_PHONE = "+1 (555) 240-1184";
-export const DEALER_ADDRESS = "1820 Highline Ave, Los Angeles, CA 90021";
-export const DEALER_NAME = "Apex Autos";
+export const DEALER_EMAIL = "sales@pmcarsales.co.ke";
+export const DEALER_PHONE = "0712 604 775";
+export const DEALER_ADDRESS = "Mombasa, Kenya";
+export const DEALER_NAME = "PM Car Sales";
+export const DEALER_TAGLINE = "Drive Your Dream";

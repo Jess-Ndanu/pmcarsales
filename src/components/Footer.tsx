@@ -1,19 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { DEALER_ADDRESS, DEALER_EMAIL, DEALER_NAME, DEALER_PHONE } from "@/lib/format";
+import logo from "@/assets/logo.png";
+import { DEALER_ADDRESS, DEALER_EMAIL, DEALER_NAME, DEALER_PHONE, DEALER_TAGLINE } from "@/lib/format";
 
 export function Footer() {
   return (
     <footer className="mt-20 border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 py-12 grid gap-10 md:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-5 md:px-10 py-12 grid gap-10 md:grid-cols-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground font-display font-bold">
-              A
-            </span>
-            <span className="font-display text-lg font-bold">{DEALER_NAME}</span>
-          </div>
-          <p className="mt-3 text-sm text-muted-foreground max-w-xs">
-            Hand-picked vehicles, transparent pricing, and white-glove service since 2008.
+          <img src={logo} alt={`${DEALER_NAME} logo`} className="h-20 w-auto" />
+          <p className="mt-4 text-sm text-foreground/70 max-w-xs leading-relaxed">
+            {DEALER_TAGLINE}. Hand-picked vehicles, transparent pricing, and trusted service in Mombasa.
           </p>
         </div>
 

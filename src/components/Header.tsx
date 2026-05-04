@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { DEALER_NAME } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
@@ -32,13 +33,12 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground font-display font-bold">
-            A
-          </span>
-          <span className="font-display text-lg font-bold tracking-tight">
-            {DEALER_NAME}
-          </span>
+        <Link to="/" className="flex items-center gap-2.5 group" aria-label={DEALER_NAME}>
+          <img
+            src={logo}
+            alt={`${DEALER_NAME} logo`}
+            className="h-12 w-auto md:h-14 transition-transform duration-300 group-hover:scale-105"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
