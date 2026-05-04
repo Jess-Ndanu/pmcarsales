@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Calendar, Gauge, Settings2 } from "lucide-react";
+import { MapPin } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
-import { formatMiles, formatPrice } from "@/lib/format";
+import { formatPrice } from "@/lib/format";
 
 type Car = Tables<"cars">;
 
@@ -34,25 +34,19 @@ export function CarCard({ car }: { car: Car }) {
         )}
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <p className="font-display text-xl font-bold text-primary leading-none">
-          {formatPrice(Number(car.price))}
-        </p>
-        <h3 className="mt-2 font-display text-lg font-semibold leading-tight text-foreground">
+        <h3 className="font-display text-lg font-semibold leading-tight text-foreground">
           {car.year} {car.make} {car.model}
         </h3>
-        <div className="mt-4 pt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-foreground/70 border-t border-border/60">
-          <span className="inline-flex items-center gap-1.5">
-            <Calendar className="h-3.5 w-3.5" style={{ color: "#C0C0C0" }} /> {car.year}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Gauge className="h-3.5 w-3.5" style={{ color: "#C0C0C0" }} /> {formatMiles(car.mileage)}
-          </span>
-          {car.transmission && (
-            <span className="inline-flex items-center gap-1.5">
-              <Settings2 className="h-3.5 w-3.5" style={{ color: "#C0C0C0" }} /> {car.transmission}
+        <p className="mt-2 font-display text-xl font-bold text-primary leading-none">
+          {formatPrice(Number(car.price))}
+        </p>
+        {car.condition && (
+          <div className="mt-4 pt-4 border-t border-border/60">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/70">
+              <MapPin className="h-3.5 w-3.5" style={{ color: "#C0C0C0" }} /> {car.condition}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </Link>
   );
