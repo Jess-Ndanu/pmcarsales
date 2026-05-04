@@ -27,6 +27,8 @@ function AdminAuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isAdmin, loading } = useAuth();
+  const { bootstrapped } = Route.useLoaderData();
+  const allowSignup = !bootstrapped;
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
