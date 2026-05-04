@@ -61,6 +61,31 @@ function InventoryPage() {
     setMaxMileage(search.maxMileage ?? "");
   }, [search]);
 
+  // Models for the selected make
+  const [models, setModels] = useState<string[]>([]);
+  const [loadingModels, setLoadingModels] = useState(false);
+  useEffect(() => {
+    if (!make) {
+      setModels([]);
+      return;
+    }
+    let cancelled = false;
+    setLoadingModels(true);
+    supabase
+      .from("cars")
+      .select("model")
+      .eq("make", make)
+      .then(({ data }) => {
+        if (cancelled) return;
+        const unique = Array.from(new Set((data ?? []).map((r) => r.model).filter(Boolean))).sort();
+        setModels(unique);
+        setLoadingModels(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [make]);
+
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
@@ -132,8 +157,9 @@ function InventoryPage() {
         <FilterSidebar
           open={filtersOpen}
           onClose={() => setFiltersOpen(false)}
-          make={make} setMake={setMake}
+          make={make} setMake={(v) => { setMake(v); setModel(""); }}
           model={model} setModel={setModel}
+          models={models} loadingModels={loadingModels}
           year={year} setYear={setYear}
           minPrice={minPrice} setMinPrice={setMinPrice}
           maxPrice={maxPrice} setMaxPrice={setMaxPrice}
@@ -201,6 +227,7 @@ interface FilterProps {
   onClose: () => void;
   make: string; setMake: (v: string) => void;
   model: string; setModel: (v: string) => void;
+  models: string[]; loadingModels: boolean;
   year: string; setYear: (v: string) => void;
   minPrice: string; setMinPrice: (v: string) => void;
   maxPrice: string; setMaxPrice: (v: string) => void;
@@ -248,7 +275,25 @@ function FilterSidebar(p: FilterProps) {
         </div>
         <div>
           <label className="block text-xs font-semibold mb-1.5">Model</label>
-          <input value={p.model} onChange={(e) => p.setModel(e.target.value)} placeholder="Any" className={fieldCls} maxLength={60} />
+          <select
+            value={p.model}
+            onChange={(e) => p.setModel(e.target.value)}
+            className={fieldCls}
+            disabled={!p.make || p.loadingModels}
+          >
+            <option value="">
+              {!p.make
+                ? "Select Make first"
+                : p.loadingModels
+                  ? "Loading…"
+                  : p.models.length === 0
+                    ? "No models"
+                    : "Any"}
+            </option>
+            {p.models.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
         </div>
         <div>
           <label className="block text-xs font-semibold mb-1.5">Year</label>
