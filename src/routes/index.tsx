@@ -6,6 +6,9 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CarCard } from "@/components/CarCard";
 import { BodyTypeFilters } from "@/components/BodyTypeFilters";
+import { Testimonials } from "@/components/Testimonials";
+import { SoldGallery } from "@/components/SoldGallery";
+import { Faq } from "@/components/Faq";
 import { DEALER_NAME } from "@/lib/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -97,24 +100,41 @@ function HomePage() {
         )}
       </section>
 
-      {/* Why */}
-      <section className="bg-surface border-y border-border">
-        <div className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24 grid gap-10 md:grid-cols-3">
-          {[
-            { icon: ShieldCheck, title: "150-Point Inspection", body: "Every car is mechanically and cosmetically vetted before it lists." },
-            { icon: Wrench, title: "Service Warranty", body: "12-month limited powertrain warranty included on every vehicle." },
-            { icon: Sparkles, title: "Transparent Pricing", body: "No hidden fees. Out-the-door price quoted upfront, every time." },
-          ].map(({ icon: Icon, title, body }) => (
-            <div key={title} className="flex flex-col">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary mb-4">
-                <Icon className="h-5 w-5" />
+      {/* Why Choose Us */}
+      <section className="bg-foreground text-background">
+        <div className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="text-sm font-semibold italic text-primary">Why us</p>
+            <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold tracking-tight text-white">
+              Why Choose Us
+            </h2>
+          </div>
+          <div className="grid gap-10 md:grid-cols-3">
+            {[
+              { icon: ShieldCheck, title: "150-Point Inspection", body: "Every car is mechanically and cosmetically vetted before it lists." },
+              { icon: Wrench, title: "Service Warranty", body: "12-month limited powertrain warranty included on every vehicle." },
+              { icon: Sparkles, title: "Transparent Pricing", body: "No hidden fees. Out-the-door price quoted upfront, every time." },
+            ].map(({ icon: Icon, title, body }) => (
+              <div key={title} className="flex flex-col items-center text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground mb-5">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="font-display text-xl font-bold text-white">{title}</h3>
+                <p className="mt-2 text-sm text-white/70 leading-relaxed max-w-xs">{body}</p>
               </div>
-              <h3 className="font-display text-xl font-bold">{title}</h3>
-              <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{body}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* Sold Gallery */}
+      <SoldGallery />
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* FAQ */}
+      <Faq />
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
