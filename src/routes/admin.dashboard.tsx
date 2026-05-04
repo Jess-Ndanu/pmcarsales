@@ -241,11 +241,15 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
   });
   const [images, setImages] = useState<string[]>(car?.images ?? []);
   const [features, setFeatures] = useState<string[]>((car as any)?.features ?? []);
+  const [safetyFeatures, setSafetyFeatures] = useState<string[]>((car as any)?.safety_features ?? []);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const toggleFeature = (f: string) => {
     setFeatures((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]);
+  };
+  const toggleSafety = (f: string) => {
+    setSafetyFeatures((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]);
   };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
