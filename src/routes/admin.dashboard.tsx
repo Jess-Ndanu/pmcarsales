@@ -346,7 +346,7 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
                 ))}
               </select>
             </div>
-            <div><label className={labelCls}>Engine size</label><input value={form.engine_size} onChange={(e) => setForm({ ...form, engine_size: e.target.value })} className={fieldCls} maxLength={40} placeholder="2000cc, 1.8L…" /></div>
+            <div><label className={labelCls}>Engine size (cc)</label><input type="number" value={form.engine_size} onChange={(e) => setForm({ ...form, engine_size: e.target.value })} className={fieldCls} min={0} placeholder="e.g. 2000" /></div>
             <div className="sm:col-span-2">
               <label className={labelCls}>Condition</label>
               <select value={form.condition} onChange={(e) => setForm({ ...form, condition: e.target.value })} className={fieldCls}>
