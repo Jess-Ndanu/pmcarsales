@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ShieldCheck, Sparkles, Wrench } from "lucide-react";
+import { ArrowRight, Car, ShieldCheck, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import heroCar from "@/assets/hero-car.jpg";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -106,9 +106,9 @@ function HomePage() {
           </div>
           <div className="grid gap-10 md:grid-cols-3">
             {[
-              { icon: ShieldCheck, title: "150-Point Inspection", body: "Every car is mechanically and cosmetically vetted before it lists." },
-              { icon: Wrench, title: "Service Warranty", body: "12-month limited powertrain warranty included on every vehicle." },
-              { icon: Sparkles, title: "Transparent Pricing", body: "No hidden fees. Out-the-door price quoted upfront, every time." },
+              { icon: Car, title: "Wide range of brands", body: "We offer a diverse selection of vehicles from top brands, ensuring you have plenty of options to find the perfect car for your needs and budget." },
+              { icon: ShieldCheck, title: "Trusted by our clients", body: "We have built a reputation for honesty and reliability, making us a trusted choice for clients seeking quality vehicles and excellent service." },
+              { icon: Zap, title: "Fast & easy financing", body: "We make the car-buying process smooth with fast and simple financing options designed to fit your budget and get you on the road quickly." },
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="flex flex-col items-center text-center">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground mb-5">
