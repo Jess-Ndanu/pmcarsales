@@ -100,8 +100,7 @@ function HomePage() {
       <section className="bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
           <div className="text-center mb-12 md:mb-16">
-            <p className="text-sm font-semibold italic text-primary">Why us</p>
-            <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold tracking-tight text-white">
+            <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-white">
               Why Choose Us
             </h2>
           </div>
