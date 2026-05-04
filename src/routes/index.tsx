@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Car, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Car, ShieldCheck, Zap, Wallet, Landmark, HandCoins, Repeat, Ship } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
 import heroCar from "@/assets/hero-car.jpg";
 import { SiteLayout } from "@/components/SiteLayout";
