@@ -125,8 +125,8 @@ function AdminDashboard() {
                 <table className="w-full text-sm">
                   <thead className="bg-surface text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     <tr>
-                      <th className="px-5 py-3">Vehicle</th>
-                      <th className="px-5 py-3">Year</th>
+                      <th className="px-5 py-3">Name</th>
+                      <th className="px-5 py-3">Make</th>
                       <th className="px-5 py-3">Price</th>
                       <th className="px-5 py-3">Status</th>
                       <th className="px-5 py-3 text-right">Actions</th>
@@ -145,12 +145,12 @@ function AdminDashboard() {
                               {car.images?.[0] && <img src={car.images[0]} alt="" className="h-full w-full object-cover" />}
                             </div>
                             <div>
-                              <p className="font-semibold">{car.make} {car.model}</p>
-                              <p className="text-xs text-muted-foreground">{car.body_type} · {car.color}</p>
+                              <p className="font-semibold">{car.model}</p>
+                              <p className="text-xs text-muted-foreground">{car.year} · {car.color}</p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-5 py-4">{car.year}</td>
+                        <td className="px-5 py-4">{car.make}</td>
                         <td className="px-5 py-4 font-semibold">{formatPrice(Number(car.price))}</td>
                         <td className="px-5 py-4">
                           <div className="flex flex-wrap gap-1">
