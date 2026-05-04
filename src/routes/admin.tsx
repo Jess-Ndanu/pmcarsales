@@ -30,15 +30,15 @@ function AdminAuthPage() {
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  if (location.pathname !== "/admin") {
-    return <Outlet />;
-  }
-
   useEffect(() => {
     if (user && isAdmin) {
       navigate({ to: "/admin/dashboard" });
     }
   }, [user, isAdmin, navigate]);
+
+  if (location.pathname !== "/admin") {
+    return <Outlet />;
+  }
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
