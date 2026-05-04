@@ -157,8 +157,9 @@ function InventoryPage() {
         <FilterSidebar
           open={filtersOpen}
           onClose={() => setFiltersOpen(false)}
-          make={make} setMake={setMake}
+          make={make} setMake={(v) => { setMake(v); setModel(""); }}
           model={model} setModel={setModel}
+          models={models} loadingModels={loadingModels}
           year={year} setYear={setYear}
           minPrice={minPrice} setMinPrice={setMinPrice}
           maxPrice={maxPrice} setMaxPrice={setMaxPrice}
