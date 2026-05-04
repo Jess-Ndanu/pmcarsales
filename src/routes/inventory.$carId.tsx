@@ -143,17 +143,12 @@ function CarDetailPage() {
               <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-primary">{formatPrice(Number(car.price))}</p>
             </div>
 
-            <div className="mt-8 rounded-xl border border-border bg-card overflow-hidden">
-              <div className="px-5 py-4 border-b border-border">
-                <h2 className="font-display text-lg font-semibold">Specifications</h2>
-              </div>
-              <dl className="grid grid-cols-2 sm:grid-cols-3 divide-x divide-y divide-border">
-                {specs.map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="p-5 -mt-px -ml-px">
-                    <dt className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      <Icon className="h-3.5 w-3.5" /> {label}
-                    </dt>
-                    <dd className="mt-1.5 text-base font-semibold">{value}</dd>
+            <div className="mt-8 rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                {specs.map(({ label, value }) => (
+                  <div key={label} className="grid grid-cols-[120px_1fr] items-start gap-3">
+                    <dt className="text-sm font-bold text-foreground">{label}:</dt>
+                    <dd className="text-sm text-foreground/80">{value}</dd>
                   </div>
                 ))}
               </dl>
