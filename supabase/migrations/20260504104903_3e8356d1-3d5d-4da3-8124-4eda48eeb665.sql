@@ -1,0 +1,1 @@
+ALTER TABLE public.cars ADD COLUMN IF NOT EXISTS features text[] NOT NULL DEFAULT '{}'::text[];
