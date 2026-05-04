@@ -5,14 +5,16 @@ import heroCar from "@/assets/hero-car.jpg";
 import { SiteLayout } from "@/components/SiteLayout";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CarCard } from "@/components/CarCard";
+import { BodyTypeFilters } from "@/components/BodyTypeFilters";
+import { DEALER_NAME } from "@/lib/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Apex Autos — Premium Pre-Owned Vehicles" },
-      { name: "description", content: "Browse hand-picked premium pre-owned cars. Search by make, model, year, and price." },
+      { title: `${DEALER_NAME} — Find Your Perfect Car in Mombasa` },
+      { name: "description", content: "Browse hand-picked quality vehicles. Search by make, model, and price. Drive your dream." },
     ],
   }),
   component: HomePage,
@@ -34,7 +36,7 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* Hero */}
-      <section className="relative -mt-16 min-h-[680px] flex items-end overflow-hidden">
+      <section className="relative -mt-16 min-h-[760px] flex items-center overflow-hidden">
         <img
           src={heroCar}
           alt="Luxury car at dusk"
@@ -43,21 +45,22 @@ function HomePage() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 hero-overlay" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-10 pt-32 pb-12 md:pb-20">
-          <div className="max-w-3xl text-background fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-wider text-white border border-primary/40">
-              <Sparkles className="h-3.5 w-3.5" /> Curated inventory · Updated weekly
-            </span>
-            <h1 className="mt-5 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight text-white">
-              Find a car worth<br /> the drive home.
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-5 md:px-10 pt-24 pb-16 text-center">
+          <div className="fade-up">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[88px] font-extrabold leading-[1.05] tracking-tight text-white">
+              Find Your <span className="text-primary">Perfect</span> Car
             </h1>
-            <p className="mt-4 max-w-xl text-base md:text-lg text-white/85 leading-relaxed">
-              Premium pre-owned vehicles, transparent pricing, and a no-pressure buying experience — all under one roof.
+            <p className="mx-auto mt-5 max-w-xl text-base md:text-lg text-white/85 leading-relaxed">
+              Hand-picked quality vehicles in Mombasa. Drive your dream — at the right price.
             </p>
           </div>
 
-          <div className="relative z-10 mt-10 md:mt-12 max-w-5xl fade-up-delay">
+          <div className="mt-10 md:mt-12 mx-auto max-w-4xl fade-up-delay">
             <HeroSearch />
+          </div>
+
+          <div className="mt-10 md:mt-14 fade-up-delay">
+            <BodyTypeFilters />
           </div>
         </div>
       </section>
@@ -66,8 +69,10 @@ function HomePage() {
       <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
         <div className="flex items-end justify-between gap-4 mb-10 md:mb-14">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[1px] text-primary">Featured</p>
-            <h2 className="section-title mt-3 font-display text-3xl md:text-4xl">Featured Cars</h2>
+            <p className="text-sm font-semibold italic text-primary">Hand-picked</p>
+            <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold tracking-tight">
+              Featured Listings
+            </h2>
           </div>
           <Link
             to="/inventory"
