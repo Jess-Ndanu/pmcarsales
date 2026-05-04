@@ -62,9 +62,6 @@ function HomePage() {
             <HeroSearch />
           </div>
 
-          <div className="mt-10 md:mt-14 fade-up-delay">
-            <BodyTypeFilters />
-          </div>
         </div>
       </section>
 
