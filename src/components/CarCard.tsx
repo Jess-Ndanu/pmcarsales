@@ -41,9 +41,9 @@ export function CarCard({ car }: { car: Car }) {
           {formatPrice(Number(car.price))}
         </p>
         {car.condition && (
-          <div className="mt-4 pt-4 border-t border-border/60">
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground/70">
-              <MapPin className="h-3.5 w-3.5" style={{ color: "#C0C0C0" }} /> {car.condition}
+          <div className="mt-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1.5 text-xs font-semibold border border-primary/20">
+              <MapPin className="h-3.5 w-3.5" /> {car.condition}
             </span>
           </div>
         )}
