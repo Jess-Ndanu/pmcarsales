@@ -79,15 +79,17 @@ function CarDetailPage() {
   const next = () => setIdx((i) => (i + 1) % images.length);
   const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
 
-  const specs: { icon: typeof CarIcon; label: string; value: string }[] = [
-    { icon: Calendar, label: "Year", value: String(car.year) },
-    { icon: Gauge, label: "Mileage", value: formatMiles(car.mileage) },
-    { icon: Fuel, label: "Fuel", value: car.fuel_type ?? "—" },
-    { icon: Settings2, label: "Transmission", value: car.transmission ?? "—" },
-    { icon: CarIcon, label: "Body", value: car.body_type ?? "—" },
-    { icon: Palette, label: "Color", value: car.color ?? "—" },
-    { icon: Cog, label: "Engine", value: car.engine_size ?? "—" },
-    { icon: BadgeCheck, label: "Condition", value: car.condition ?? "—" },
+  const specs: { label: string; value: string }[] = [
+    { label: "Make", value: car.make },
+    { label: "Model", value: car.model },
+    { label: "Condition", value: car.condition ?? "—" },
+    { label: "Year", value: String(car.year) },
+    { label: "Mileage", value: formatMiles(car.mileage) },
+    { label: "Fuel", value: car.fuel_type ?? "—" },
+    { label: "Transmission", value: car.transmission ?? "—" },
+    { label: "Body", value: car.body_type ?? "—" },
+    { label: "Color", value: car.color ?? "—" },
+    { label: "Engine Size", value: car.engine_size ?? "—" },
   ];
 
   return (
