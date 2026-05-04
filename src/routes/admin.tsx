@@ -116,9 +116,7 @@ function AdminAuthPage() {
       <div className="mx-auto max-w-md px-4 py-16 md:py-24">
         <Link to="/" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary">← Back to site</Link>
         <h1 className="mt-3 font-display text-3xl font-bold">{mode === "signin" ? "Admin sign in" : "Create admin account"}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {mode === "signin" ? "Restricted access." : "First account becomes admin automatically."}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">Restricted access.</p>
 
         <form onSubmit={submit} className="mt-6 space-y-3 rounded-xl border border-border bg-card p-6 shadow-card">
           <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className={fieldCls} required maxLength={255} />
@@ -132,12 +130,14 @@ function AdminAuthPage() {
           </button>
         </form>
 
-        <button
-          onClick={() => setMode((m) => (m === "signin" ? "signup" : "signin"))}
-          className="mt-4 w-full text-sm text-muted-foreground hover:text-primary"
-        >
-          {mode === "signin" ? "No account? Create one" : "Have an account? Sign in"}
-        </button>
+        {allowSignup && (
+          <button
+            onClick={() => setMode((m) => (m === "signin" ? "signup" : "signin"))}
+            className="mt-4 w-full text-sm text-muted-foreground hover:text-primary"
+          >
+            {mode === "signin" ? "No account? Create one" : "Have an account? Sign in"}
+          </button>
+        )}
       </div>
     </SiteLayout>
   );
