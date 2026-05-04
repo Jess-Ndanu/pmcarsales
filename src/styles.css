@@ -37,6 +37,7 @@
   --color-ring: var(--ring);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
+  --color-heading: var(--heading);
 
   --shadow-card: 0 2px 8px rgb(0 0 0 / 0.08);
   --shadow-card-hover: 0 12px 28px rgb(0 0 0 / 0.14);
