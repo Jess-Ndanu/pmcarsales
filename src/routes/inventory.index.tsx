@@ -22,7 +22,7 @@ const searchSchema = z.object({
 
 const PAGE_SIZE = 9;
 
-export const Route = createFileRoute("/inventory")({
+export const Route = createFileRoute("/inventory/")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
