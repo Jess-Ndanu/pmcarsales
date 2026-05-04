@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -17,6 +18,11 @@ import { Route as InventoryIndexRouteImport } from './routes/inventory.index'
 import { Route as InventoryCarIdRouteImport } from './routes/inventory.$carId'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
+const InventoryRoute = InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -38,14 +44,14 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const InventoryIndexRoute = InventoryIndexRouteImport.update({
-  id: '/inventory/',
-  path: '/inventory/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => InventoryRoute,
 } as any)
 const InventoryCarIdRoute = InventoryCarIdRouteImport.update({
-  id: '/inventory/$carId',
-  path: '/inventory/$carId',
-  getParentRoute: () => rootRouteImport,
+  id: '/$carId',
+  path: '/$carId',
+  getParentRoute: () => InventoryRoute,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/dashboard',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/inventory': typeof InventoryRouteWithChildren
   '/admin/dashboard': typeof AdminDashboardRoute
   '/inventory/$carId': typeof InventoryCarIdRoute
   '/inventory/': typeof InventoryIndexRoute
@@ -77,6 +84,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/inventory': typeof InventoryRouteWithChildren
   '/admin/dashboard': typeof AdminDashboardRoute
   '/inventory/$carId': typeof InventoryCarIdRoute
   '/inventory/': typeof InventoryIndexRoute
@@ -88,6 +96,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/contact'
+    | '/inventory'
     | '/admin/dashboard'
     | '/inventory/$carId'
     | '/inventory/'
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/contact'
+    | '/inventory'
     | '/admin/dashboard'
     | '/inventory/$carId'
     | '/inventory/'
@@ -116,12 +126,18 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
-  InventoryCarIdRoute: typeof InventoryCarIdRoute
-  InventoryIndexRoute: typeof InventoryIndexRoute
+  InventoryRoute: typeof InventoryRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/inventory': {
+      id: '/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof InventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -152,17 +168,17 @@ declare module '@tanstack/react-router' {
     }
     '/inventory/': {
       id: '/inventory/'
-      path: '/inventory'
+      path: '/'
       fullPath: '/inventory/'
       preLoaderRoute: typeof InventoryIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof InventoryRoute
     }
     '/inventory/$carId': {
       id: '/inventory/$carId'
-      path: '/inventory/$carId'
+      path: '/$carId'
       fullPath: '/inventory/$carId'
       preLoaderRoute: typeof InventoryCarIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof InventoryRoute
     }
     '/admin/dashboard': {
       id: '/admin/dashboard'
@@ -184,13 +200,26 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface InventoryRouteChildren {
+  InventoryCarIdRoute: typeof InventoryCarIdRoute
+  InventoryIndexRoute: typeof InventoryIndexRoute
+}
+
+const InventoryRouteChildren: InventoryRouteChildren = {
+  InventoryCarIdRoute: InventoryCarIdRoute,
+  InventoryIndexRoute: InventoryIndexRoute,
+}
+
+const InventoryRouteWithChildren = InventoryRoute._addFileChildren(
+  InventoryRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
-  InventoryCarIdRoute: InventoryCarIdRoute,
-  InventoryIndexRoute: InventoryIndexRoute,
+  InventoryRoute: InventoryRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
