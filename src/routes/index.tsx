@@ -10,7 +10,7 @@ import { CarCard } from "@/components/CarCard";
 import { Testimonials } from "@/components/Testimonials";
 import { SoldGallery } from "@/components/SoldGallery";
 import { Faq } from "@/components/Faq";
-import { DEALER_NAME } from "@/lib/format";
+import { DEALER_NAME, DEALER_WHATSAPP } from "@/lib/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
