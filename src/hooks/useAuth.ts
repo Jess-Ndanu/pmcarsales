@@ -18,22 +18,38 @@ export function useAuth(): AuthState {
   useEffect(() => {
     let mounted = true;
 
-    // Set up listener FIRST
+    const checkAdmin = async (u: User | null) => {
+      if (!u) {
+        if (mounted) setIsAdmin(false);
+        return;
+      }
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", u.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!mounted) return;
+      if (error) console.error("admin role check failed:", error);
+      setIsAdmin(!!data);
+    };
+
+    // Listener FIRST
     const { data: sub } = supabase.auth.onAuthStateChange((_evt, sess) => {
       if (!mounted) return;
       setSession(sess);
       setUser(sess?.user ?? null);
-      if (!sess?.user) {
-        setIsAdmin(false);
-      }
+      // Defer Supabase call to avoid deadlock inside auth callback
+      setTimeout(() => checkAdmin(sess?.user ?? null), 0);
     });
 
-    // THEN check existing
-    supabase.auth.getSession().then(({ data }) => {
+    // THEN restore existing
+    supabase.auth.getSession().then(async ({ data }) => {
       if (!mounted) return;
       setSession(data.session);
       setUser(data.session?.user ?? null);
-      setLoading(false);
+      await checkAdmin(data.session?.user ?? null);
+      if (mounted) setLoading(false);
     });
 
     return () => {
@@ -41,21 +57,6 @@ export function useAuth(): AuthState {
       sub.subscription.unsubscribe();
     };
   }, []);
-
-  // Check admin role whenever user changes
-  useEffect(() => {
-    if (!user) {
-      setIsAdmin(false);
-      return;
-    }
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle()
-      .then(({ data }) => setIsAdmin(!!data));
-  }, [user]);
 
   return { user, session, isAdmin, loading };
 }
