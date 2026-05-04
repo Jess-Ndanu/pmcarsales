@@ -1,9 +1,10 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const MAKES = ["All Makes", "Audi", "BMW", "Daihatsu", "Ford", "Honda", "Mazda", "Mercedes-Benz", "Mitsubishi", "Nissan", "Peugeot", "Porsche", "Range Rover", "Subaru", "Toyota", "Volkswagen", "Volvo"];
-const MODELS = ["All Models", "Sedan", "Coupe", "SUV", "Hatchback", "Convertible", "Truck"];
+
 const PRICES = [
   { label: "Max Price", value: "" },
   { label: "Under KES 1M", value: "0-1000000" },
@@ -21,6 +22,32 @@ export function HeroSearch() {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [price, setPrice] = useState("");
+  const [models, setModels] = useState<string[]>([]);
+  const [loadingModels, setLoadingModels] = useState(false);
+
+  useEffect(() => {
+    if (!make) {
+      setModels([]);
+      setModel("");
+      return;
+    }
+    let cancelled = false;
+    setLoadingModels(true);
+    supabase
+      .from("cars")
+      .select("model")
+      .eq("make", make)
+      .then(({ data }) => {
+        if (cancelled) return;
+        const unique = Array.from(new Set((data ?? []).map((r) => r.model).filter(Boolean))).sort();
+        setModels(unique);
+        setModel("");
+        setLoadingModels(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [make]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +64,7 @@ export function HeroSearch() {
   };
 
   const selectCls =
-    "h-full w-full appearance-none bg-transparent px-5 pr-9 text-sm font-semibold text-foreground focus:outline-none cursor-pointer";
+    "h-full w-full appearance-none bg-transparent px-5 pr-9 text-sm font-semibold text-foreground focus:outline-none cursor-pointer disabled:cursor-not-allowed disabled:text-foreground/40";
 
   return (
     <div className="w-full">
@@ -74,9 +101,23 @@ export function HeroSearch() {
           <Chevron />
         </div>
         <div className="relative flex-1 flex items-center border-r border-border/70">
-          <select value={model} onChange={(e) => setModel(e.target.value)} className={selectCls}>
-            {MODELS.map((m) => (
-              <option key={m} value={m === "All Models" ? "" : m}>{m}</option>
+          <select
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            className={selectCls}
+            disabled={!make || loadingModels}
+          >
+            <option value="">
+              {!make
+                ? "Select Make first"
+                : loadingModels
+                  ? "Loading…"
+                  : models.length === 0
+                    ? "No models"
+                    : "All Models"}
+            </option>
+            {models.map((m) => (
+              <option key={m} value={m}>{m}</option>
             ))}
           </select>
           <Chevron />
