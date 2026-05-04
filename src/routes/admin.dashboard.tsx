@@ -392,7 +392,26 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
               </label>
             </div>
           </div>
+          <div>
+            <label className={labelCls}>Features</label>
+            <div className="flex flex-wrap gap-2">
+              {FEATURE_OPTIONS.map((f) => {
+                const active = features.includes(f);
+                return (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => toggleFeature(f)}
+                    className={`inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium transition ${active ? "bg-primary text-primary-foreground border-primary" : "bg-background border-border hover:border-primary"}`}
+                  >
+                    {f}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
+          
           <div className="flex flex-wrap gap-4">
             <label className="inline-flex items-center gap-2 text-sm">
               <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="h-4 w-4 rounded border-border" />
