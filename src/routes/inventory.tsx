@@ -227,6 +227,7 @@ interface FilterProps {
   onClose: () => void;
   make: string; setMake: (v: string) => void;
   model: string; setModel: (v: string) => void;
+  models: string[]; loadingModels: boolean;
   year: string; setYear: (v: string) => void;
   minPrice: string; setMinPrice: (v: string) => void;
   maxPrice: string; setMaxPrice: (v: string) => void;
