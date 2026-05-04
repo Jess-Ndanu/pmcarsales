@@ -71,7 +71,7 @@ function ContactPage() {
             {[
               { icon: Phone, label: "Call", value: DEALER_PHONE, href: `tel:${DEALER_PHONE.replace(/\s/g, "")}` },
               { icon: Mail, label: "Email", value: DEALER_EMAIL, href: `mailto:${DEALER_EMAIL}` },
-              { icon: MapPin, label: "Visit", value: DEALER_ADDRESS, href: "#map" },
+              { icon: MapPin, label: "Visit", value: DEALER_ADDRESS, href: `mailto:${DEALER_EMAIL}` },
             ].map(({ icon: Icon, label, value, href }) => (
               <a key={label} href={href} className="rounded-xl border border-border bg-card p-5 hover:border-primary transition-colors">
                 <Icon className="h-5 w-5 text-primary" />
@@ -79,15 +79,6 @@ function ContactPage() {
                 <p className="mt-1 text-sm font-medium">{value}</p>
               </a>
             ))}
-          </div>
-
-          <div id="map" className="overflow-hidden rounded-2xl border border-border aspect-[16/10]">
-            <iframe
-              title="Showroom map"
-              src="https://www.google.com/maps?q=Los+Angeles+CA&output=embed"
-              className="w-full h-full border-0"
-              loading="lazy"
-            />
           </div>
         </div>
 
