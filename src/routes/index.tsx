@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Car, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Car, ShieldCheck, Zap, Wallet, Landmark, HandCoins, Repeat, Ship } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
 import heroCar from "@/assets/hero-car.jpg";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -120,6 +121,57 @@ function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Flexible Purchase Terms */}
+      <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
+        <div className="text-center mb-10 md:mb-14">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">How you pay</p>
+          <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight">
+            Flexible purchase terms
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground leading-relaxed">
+            Pick the path that fits you best. We'll walk you through every step — no jargon, no surprises.
+          </p>
+        </div>
+
+        <Tabs defaultValue="cash" className="w-full">
+          <TabsList className="mx-auto mb-8 flex h-auto w-full max-w-3xl flex-wrap justify-center gap-1 bg-muted/60 p-1.5">
+            {[
+              { v: "cash", icon: Wallet, label: "Cash" },
+              { v: "hire", icon: HandCoins, label: "Hire Purchase" },
+              { v: "bank", icon: Landmark, label: "Bank / SACCO" },
+              { v: "trade", icon: Repeat, label: "Trade-In" },
+              { v: "import", icon: Ship, label: "Imports" },
+            ].map(({ v, icon: Icon, label }) => (
+              <TabsTrigger key={v} value={v} className="flex items-center gap-1.5 px-3 py-2 text-xs md:text-sm">
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {[
+            { v: "cash", title: "Cash purchases", body: "Pay in full and drive away the same day. We handle logbook transfer end-to-end so the car is legally yours before you leave the yard." },
+            { v: "hire", title: "Hire purchase", body: "Put a deposit down, pay the balance in monthly installments directly to us. Flexible terms tailored to your income — no bank approval required." },
+            { v: "bank", title: "Bank & SACCO financing", body: "We work with all major Kenyan banks and SACCOs. Bring your pre-approval or we'll connect you with our partner lenders for competitive rates." },
+            { v: "trade", title: "Trade-in your old car", body: "Drive in your current vehicle, drive out in a new one. We'll value your car on the spot and apply it as part of your new car's price." },
+            { v: "import", title: "Custom imports", body: "Can't find what you want on the lot? Tell us the make, model, and year — we'll source it directly from Japan or the UK and handle clearing, duty, and registration." },
+          ].map(({ v, title, body }) => (
+            <TabsContent key={v} value={v} className="mt-0">
+              <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-card p-8 md:p-12 text-center shadow-sm">
+                <h3 className="font-display text-2xl md:text-3xl font-bold">{title}</h3>
+                <p className="mt-4 text-base text-muted-foreground leading-relaxed">{body}</p>
+                <Link
+                  to="/contact"
+                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-primary hover:gap-2.5 transition-all"
+                >
+                  Talk to us <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </section>
 
       {/* Sold Gallery */}
