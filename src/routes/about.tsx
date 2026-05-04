@@ -58,14 +58,6 @@ function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-20">
           <h2 className="font-display text-3xl md:text-4xl font-bold">Visit our showroom</h2>
           <p className="mt-3 text-muted-foreground">{DEALER_ADDRESS}</p>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-border aspect-[16/8]">
-            <iframe
-              title="Map"
-              src="https://www.google.com/maps?q=Los+Angeles+CA&output=embed"
-              className="w-full h-full border-0"
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
     </SiteLayout>
