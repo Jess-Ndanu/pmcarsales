@@ -8,6 +8,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { formatPrice } from "@/lib/format";
+import { TestimonialsManager } from "@/components/admin/TestimonialsManager";
+import { SoldGalleryManager } from "@/components/admin/SoldGalleryManager";
+
+type Tab = "cars" | "gallery" | "testimonials";
 
 export const Route = createFileRoute("/admin/dashboard")({
   head: () => ({
@@ -23,6 +27,7 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Tables<"cars"> | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [tab, setTab] = useState<Tab>("cars");
 
   useEffect(() => {
     if (!authLoading && (!user || !isAdmin)) {
