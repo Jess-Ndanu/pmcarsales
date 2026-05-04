@@ -320,7 +320,15 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
             <div><label className={labelCls}>Price (USD)</label><input type="number" value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} className={fieldCls} required min={0} step={100} /></div>
             <div><label className={labelCls}>Mileage</label><input type="number" value={form.mileage} onChange={(e) => setForm({ ...form, mileage: Number(e.target.value) })} className={fieldCls} min={0} /></div>
             <div><label className={labelCls}>Body type</label><input value={form.body_type} onChange={(e) => setForm({ ...form, body_type: e.target.value })} className={fieldCls} maxLength={40} placeholder="Sedan, SUV…" /></div>
-            <div><label className={labelCls}>Fuel</label><input value={form.fuel_type} onChange={(e) => setForm({ ...form, fuel_type: e.target.value })} className={fieldCls} maxLength={40} placeholder="Petrol, Electric…" /></div>
+            <div>
+              <label className={labelCls}>Fuel</label>
+              <select value={form.fuel_type} onChange={(e) => setForm({ ...form, fuel_type: e.target.value })} className={fieldCls}>
+                <option value="">Select…</option>
+                {["Petrol","Diesel","Hybrid","Electric"].map((f) => (
+                  <option key={f} value={f}>{f}</option>
+                ))}
+              </select>
+            </div>
             <div>
               <label className={labelCls}>Transmission</label>
               <select value={form.transmission} onChange={(e) => setForm({ ...form, transmission: e.target.value })} className={fieldCls}>
@@ -329,7 +337,15 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
                 <option value="Manual">Manual</option>
               </select>
             </div>
-            <div><label className={labelCls}>Color</label><input value={form.color} onChange={(e) => setForm({ ...form, color: e.target.value })} className={fieldCls} maxLength={40} /></div>
+            <div>
+              <label className={labelCls}>Color</label>
+              <select value={form.color} onChange={(e) => setForm({ ...form, color: e.target.value })} className={fieldCls}>
+                <option value="">Select…</option>
+                {["Black","Blue","Brown","Gold","Green","Grey","Orange","Red","Silver","White","Yellow"].map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
             <div><label className={labelCls}>Engine size</label><input value={form.engine_size} onChange={(e) => setForm({ ...form, engine_size: e.target.value })} className={fieldCls} maxLength={40} placeholder="2000cc, 1.8L…" /></div>
             <div className="sm:col-span-2">
               <label className={labelCls}>Condition</label>
