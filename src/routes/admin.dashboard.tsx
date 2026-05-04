@@ -210,6 +210,12 @@ const carSchema = z.object({
   description: z.string().trim().max(4000).optional().or(z.literal("")),
 });
 
+const FEATURE_OPTIONS = [
+  "360-degree camera","Blind spot alert","Bluetooth","Cooled seats","Heated seats",
+  "Keyless start","Leather seats","LED headlights","Memory seat","Navigation System",
+  "Reversing camera","Side airbags","Sound system","Traction Control","USB port",
+];
+
 function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; onClose: () => void; onSaved: () => void }) {
   const [form, setForm] = useState({
     make: car?.make ?? "",
@@ -228,8 +234,13 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
     sold: car?.sold ?? false,
   });
   const [images, setImages] = useState<string[]>(car?.images ?? []);
+  const [features, setFeatures] = useState<string[]>((car as any)?.features ?? []);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  const toggleFeature = (f: string) => {
+    setFeatures((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]);
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
