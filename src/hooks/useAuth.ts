@@ -20,7 +20,10 @@ export function useAuth(): AuthState {
 
     const checkAdmin = async (u: User | null) => {
       if (!u) {
-        if (mounted) setIsAdmin(false);
+        if (mounted) {
+          setIsAdmin(false);
+          setLoading(false);
+        }
         return;
       }
       const { data, error } = await supabase
@@ -32,11 +35,13 @@ export function useAuth(): AuthState {
       if (!mounted) return;
       if (error) console.error("admin role check failed:", error);
       setIsAdmin(!!data);
+      setLoading(false);
     };
 
     // Listener FIRST
     const { data: sub } = supabase.auth.onAuthStateChange((_evt, sess) => {
       if (!mounted) return;
+      setLoading(true);
       setSession(sess);
       setUser(sess?.user ?? null);
       // Defer Supabase call to avoid deadlock inside auth callback
@@ -49,7 +54,6 @@ export function useAuth(): AuthState {
       setSession(data.session);
       setUser(data.session?.user ?? null);
       await checkAdmin(data.session?.user ?? null);
-      if (mounted) setLoading(false);
     });
 
     return () => {
