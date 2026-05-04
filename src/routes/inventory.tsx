@@ -275,7 +275,25 @@ function FilterSidebar(p: FilterProps) {
         </div>
         <div>
           <label className="block text-xs font-semibold mb-1.5">Model</label>
-          <input value={p.model} onChange={(e) => p.setModel(e.target.value)} placeholder="Any" className={fieldCls} maxLength={60} />
+          <select
+            value={p.model}
+            onChange={(e) => p.setModel(e.target.value)}
+            className={fieldCls}
+            disabled={!p.make || p.loadingModels}
+          >
+            <option value="">
+              {!p.make
+                ? "Select Make first"
+                : p.loadingModels
+                  ? "Loading…"
+                  : p.models.length === 0
+                    ? "No models"
+                    : "Any"}
+            </option>
+            {p.models.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
         </div>
         <div>
           <label className="block text-xs font-semibold mb-1.5">Year</label>
