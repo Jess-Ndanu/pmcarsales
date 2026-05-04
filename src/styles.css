@@ -46,11 +46,12 @@
 :root {
   --radius: 0.625rem;
 
-  /* Clean white bg, dark gray text #333, bright red CTA #FF0000 */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.31 0 0); /* #333333 */
+  /* Palette: white bg, light gray sections, dark gray text, black headers, red accent, silver lines */
+  --background: oklch(1 0 0);              /* white */
+  --foreground: oklch(0.31 0 0);           /* #333 dark gray body text */
+  --heading: oklch(0 0 0);                 /* black headers */
 
-  --surface: oklch(0.985 0 0);
+  --surface: oklch(0.97 0 0);              /* light gray sections */
   --surface-foreground: oklch(0.31 0 0);
 
   --card: oklch(1 0 0);
@@ -58,23 +59,23 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.31 0 0);
 
-  /* #FF0000 ≈ oklch(0.628 0.2577 29.23) */
+  /* Red — primary attention color only */
   --primary: oklch(0.628 0.2577 29.23);
   --primary-foreground: oklch(1 0 0);
 
-  --secondary: oklch(0.96 0.008 250);
-  --secondary-foreground: oklch(0.18 0.015 250);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0 0 0);
 
-  --muted: oklch(0.96 0.008 250);
-  --muted-foreground: oklch(0.50 0.015 250);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.45 0 0);     /* mid gray */
 
-  --accent: oklch(0.96 0.008 250);
-  --accent-foreground: oklch(0.18 0.015 250);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0 0 0);
 
-  --destructive: oklch(0.60 0.22 25);
+  --destructive: oklch(0.628 0.2577 29.23);
   --destructive-foreground: oklch(1 0 0);
 
-  /* Silver #C0C0C0 borders */
+  /* Silver #C0C0C0 borders/lines */
   --border: oklch(0.806 0 0);
   --input: oklch(0.806 0 0);
   --ring: oklch(0.628 0.2577 29.23);
