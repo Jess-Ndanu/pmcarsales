@@ -421,6 +421,23 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
               })}
             </div>
           </div>
+          <div>
+            <label className={labelCls}>Safety Features</label>
+            <div className="flex flex-wrap gap-2">
+              {SAFETY_FEATURE_OPTIONS.map((f) => {
+                const active = safetyFeatures.includes(f);
+                return (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => toggleSafety(f)}
+                    className={`inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium transition ${active ? "bg-primary text-primary-foreground border-primary" : "bg-background border-border hover:border-primary"}`}
+                  >
+                    {f}
+                  </button>
+                );
+              })}
+            </div>
 
           
           <div className="flex flex-wrap gap-4">
