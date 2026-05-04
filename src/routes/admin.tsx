@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -23,11 +23,16 @@ const schema = z.object({
 
 function AdminAuthPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, isAdmin, loading } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  if (location.pathname !== "/admin") {
+    return <Outlet />;
+  }
 
   useEffect(() => {
     if (user && isAdmin) {
