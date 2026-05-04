@@ -216,6 +216,12 @@ const FEATURE_OPTIONS = [
   "Reversing camera","Side airbags","Sound system","Traction Control","USB port",
 ];
 
+const SAFETY_FEATURE_OPTIONS = [
+  "Active head restraints","Adaptive headlights","Backup camera","Blind-spot warning",
+  "Brake assist","Forward-collision warning","Lane keeping assist","Parking assist systems",
+  "Pedestrian detection","Sideview camera",
+];
+
 function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; onClose: () => void; onSaved: () => void }) {
   const [form, setForm] = useState({
     make: car?.make ?? "",
