@@ -162,9 +162,9 @@ function CarDetailPage() {
             )}
           </div>
 
-          {/* Inquiry form */}
+          {/* WhatsApp CTA */}
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <InquiryForm carId={car.id} carName={`${car.year} ${car.make} ${car.model}`} />
+            <WhatsAppCTA carName={`${car.year} ${car.make} ${car.model}`} />
           </aside>
         </div>
       </div>
