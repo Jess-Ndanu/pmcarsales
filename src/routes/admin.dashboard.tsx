@@ -210,6 +210,12 @@ const carSchema = z.object({
   description: z.string().trim().max(4000).optional().or(z.literal("")),
 });
 
+const FEATURE_OPTIONS = [
+  "360-degree camera","Blind spot alert","Bluetooth","Cooled seats","Heated seats",
+  "Keyless start","Leather seats","LED headlights","Memory seat","Navigation System",
+  "Reversing camera","Side airbags","Sound system","Traction Control","USB port",
+];
+
 function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; onClose: () => void; onSaved: () => void }) {
   const [form, setForm] = useState({
     make: car?.make ?? "",
@@ -228,8 +234,13 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
     sold: car?.sold ?? false,
   });
   const [images, setImages] = useState<string[]>(car?.images ?? []);
+  const [features, setFeatures] = useState<string[]>((car as any)?.features ?? []);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  const toggleFeature = (f: string) => {
+    setFeatures((prev) => prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]);
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
@@ -281,9 +292,10 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
       engine_size: parsed.data.engine_size || null,
       description: parsed.data.description || null,
       images,
+      features,
       featured: form.featured,
       sold: form.sold,
-    };
+    } as any;
     let error;
     if (car) {
       ({ error } = await supabase.from("cars").update(payload).eq("id", car.id));
@@ -380,7 +392,26 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
               </label>
             </div>
           </div>
+          <div>
+            <label className={labelCls}>Features</label>
+            <div className="flex flex-wrap gap-2">
+              {FEATURE_OPTIONS.map((f) => {
+                const active = features.includes(f);
+                return (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => toggleFeature(f)}
+                    className={`inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium transition ${active ? "bg-primary text-primary-foreground border-primary" : "bg-background border-border hover:border-primary"}`}
+                  >
+                    {f}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
+          
           <div className="flex flex-wrap gap-4">
             <label className="inline-flex items-center gap-2 text-sm">
               <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="h-4 w-4 rounded border-border" />

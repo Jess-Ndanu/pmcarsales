@@ -23,6 +23,7 @@ export type Database = {
           description: string | null
           engine_size: string | null
           featured: boolean
+          features: string[]
           fuel_type: string | null
           id: string
           images: string[]
@@ -43,6 +44,7 @@ export type Database = {
           description?: string | null
           engine_size?: string | null
           featured?: boolean
+          features?: string[]
           fuel_type?: string | null
           id?: string
           images?: string[]
@@ -63,6 +65,7 @@ export type Database = {
           description?: string | null
           engine_size?: string | null
           featured?: boolean
+          features?: string[]
           fuel_type?: string | null
           id?: string
           images?: string[]
