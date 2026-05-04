@@ -18,8 +18,10 @@ export type Database = {
         Row: {
           body_type: string | null
           color: string | null
+          condition: string | null
           created_at: string
           description: string | null
+          engine_size: string | null
           featured: boolean
           fuel_type: string | null
           id: string
@@ -36,8 +38,10 @@ export type Database = {
         Insert: {
           body_type?: string | null
           color?: string | null
+          condition?: string | null
           created_at?: string
           description?: string | null
+          engine_size?: string | null
           featured?: boolean
           fuel_type?: string | null
           id?: string
@@ -54,8 +58,10 @@ export type Database = {
         Update: {
           body_type?: string | null
           color?: string | null
+          condition?: string | null
           created_at?: string
           description?: string | null
+          engine_size?: string | null
           featured?: boolean
           fuel_type?: string | null
           id?: string

@@ -205,6 +205,8 @@ const carSchema = z.object({
   fuel_type: z.string().trim().max(40).optional().or(z.literal("")),
   transmission: z.string().trim().max(40).optional().or(z.literal("")),
   color: z.string().trim().max(40).optional().or(z.literal("")),
+  condition: z.string().trim().max(80).optional().or(z.literal("")),
+  engine_size: z.string().trim().max(40).optional().or(z.literal("")),
   description: z.string().trim().max(4000).optional().or(z.literal("")),
 });
 
@@ -219,6 +221,8 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
     fuel_type: car?.fuel_type ?? "",
     transmission: car?.transmission ?? "",
     color: car?.color ?? "",
+    condition: car?.condition ?? "",
+    engine_size: car?.engine_size ?? "",
     description: car?.description ?? "",
     featured: car?.featured ?? false,
     sold: car?.sold ?? false,
@@ -273,6 +277,8 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
       fuel_type: parsed.data.fuel_type || null,
       transmission: parsed.data.transmission || null,
       color: parsed.data.color || null,
+      condition: parsed.data.condition || null,
+      engine_size: parsed.data.engine_size || null,
       description: parsed.data.description || null,
       images,
       featured: form.featured,
@@ -315,8 +321,24 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
             <div><label className={labelCls}>Mileage</label><input type="number" value={form.mileage} onChange={(e) => setForm({ ...form, mileage: Number(e.target.value) })} className={fieldCls} min={0} /></div>
             <div><label className={labelCls}>Body type</label><input value={form.body_type} onChange={(e) => setForm({ ...form, body_type: e.target.value })} className={fieldCls} maxLength={40} placeholder="Sedan, SUV…" /></div>
             <div><label className={labelCls}>Fuel</label><input value={form.fuel_type} onChange={(e) => setForm({ ...form, fuel_type: e.target.value })} className={fieldCls} maxLength={40} placeholder="Petrol, Electric…" /></div>
-            <div><label className={labelCls}>Transmission</label><input value={form.transmission} onChange={(e) => setForm({ ...form, transmission: e.target.value })} className={fieldCls} maxLength={40} /></div>
-            <div className="sm:col-span-2"><label className={labelCls}>Color</label><input value={form.color} onChange={(e) => setForm({ ...form, color: e.target.value })} className={fieldCls} maxLength={40} /></div>
+            <div>
+              <label className={labelCls}>Transmission</label>
+              <select value={form.transmission} onChange={(e) => setForm({ ...form, transmission: e.target.value })} className={fieldCls}>
+                <option value="">Select…</option>
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+              </select>
+            </div>
+            <div><label className={labelCls}>Color</label><input value={form.color} onChange={(e) => setForm({ ...form, color: e.target.value })} className={fieldCls} maxLength={40} /></div>
+            <div><label className={labelCls}>Engine size</label><input value={form.engine_size} onChange={(e) => setForm({ ...form, engine_size: e.target.value })} className={fieldCls} maxLength={40} placeholder="2000cc, 1.8L…" /></div>
+            <div className="sm:col-span-2">
+              <label className={labelCls}>Condition</label>
+              <select value={form.condition} onChange={(e) => setForm({ ...form, condition: e.target.value })} className={fieldCls}>
+                <option value="">Select…</option>
+                <option value="Imported and available in Mombasa">Imported and available in Mombasa</option>
+                <option value="Traded in">Traded in</option>
+              </select>
+            </div>
           </div>
 
           <div>

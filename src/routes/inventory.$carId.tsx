@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Gauge, Fuel, Settings2, Palette, Car as CarIcon } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Gauge, Fuel, Settings2, Palette, Car as CarIcon, Cog, BadgeCheck } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -86,6 +86,8 @@ function CarDetailPage() {
     { icon: Settings2, label: "Transmission", value: car.transmission ?? "—" },
     { icon: CarIcon, label: "Body", value: car.body_type ?? "—" },
     { icon: Palette, label: "Color", value: car.color ?? "—" },
+    { icon: Cog, label: "Engine", value: car.engine_size ?? "—" },
+    { icon: BadgeCheck, label: "Condition", value: car.condition ?? "—" },
   ];
 
   return (
