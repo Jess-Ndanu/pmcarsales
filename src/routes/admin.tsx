@@ -54,6 +54,11 @@ function AdminAuthPage() {
     setSubmitting(true);
 
     if (mode === "signup") {
+      if (!allowSignup) {
+        setSubmitting(false);
+        toast.error("Sign-up is disabled.");
+        return;
+      }
       const { error } = await supabase.auth.signUp({
         email: parsed.data.email,
         password: parsed.data.password,
@@ -64,7 +69,7 @@ function AdminAuthPage() {
         toast.error(error.message);
         return;
       }
-      toast.success("Account created. The first signup is automatically admin.");
+      toast.success("Account created.");
     } else {
       const { error } = await supabase.auth.signInWithPassword({
         email: parsed.data.email,
