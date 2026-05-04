@@ -43,48 +43,48 @@ function HomePage() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 hero-overlay" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 md:px-8 pt-32 pb-12 md:pb-16">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-10 pt-32 pb-12 md:pb-20">
           <div className="max-w-3xl text-background fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 backdrop-blur px-3 py-1 text-xs font-semibold text-primary border border-primary/30">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-wider text-white border border-primary/40">
               <Sparkles className="h-3.5 w-3.5" /> Curated inventory · Updated weekly
             </span>
-            <h1 className="mt-5 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white">
+            <h1 className="mt-5 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight text-white">
               Find a car worth<br /> the drive home.
             </h1>
-            <p className="mt-4 max-w-xl text-base md:text-lg text-white/80">
+            <p className="mt-4 max-w-xl text-base md:text-lg text-white/85 leading-relaxed">
               Premium pre-owned vehicles, transparent pricing, and a no-pressure buying experience — all under one roof.
             </p>
           </div>
 
-          <div className="relative z-10 mt-8 md:mt-10 max-w-5xl">
+          <div className="relative z-10 mt-10 md:mt-12 max-w-5xl fade-up-delay">
             <HeroSearch />
           </div>
         </div>
       </section>
 
       {/* Featured */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-24">
-        <div className="flex items-end justify-between gap-4 mb-10">
+      <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
+        <div className="flex items-end justify-between gap-4 mb-10 md:mb-14">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">Featured</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl font-bold">This week's highlights</h2>
+            <p className="text-xs font-bold uppercase tracking-[1px] text-primary">Featured</p>
+            <h2 className="section-title mt-3 font-display text-3xl md:text-4xl">Featured Cars</h2>
           </div>
           <Link
             to="/inventory"
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary"
+            className="hidden sm:inline-flex items-center gap-1 text-sm font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors"
           >
             View all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
         {featured.length === 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="aspect-[4/3] rounded-xl bg-muted animate-pulse" />
+              <div key={i} className="aspect-[4/3] rounded-lg bg-muted animate-pulse" style={{ borderRadius: "8px" }} />
             ))}
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((car) => (
               <CarCard key={car.id} car={car} />
             ))}
@@ -94,45 +94,45 @@ function HomePage() {
 
       {/* Why */}
       <section className="bg-surface border-y border-border">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-20 grid gap-10 md:grid-cols-3">
+        <div className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24 grid gap-10 md:grid-cols-3">
           {[
-            { icon: ShieldCheck, title: "150-point inspection", body: "Every car is mechanically and cosmetically vetted before it lists." },
-            { icon: Wrench, title: "Service warranty", body: "12-month limited powertrain warranty included on every vehicle." },
-            { icon: Sparkles, title: "Transparent pricing", body: "No hidden fees. Out-the-door price quoted upfront, every time." },
+            { icon: ShieldCheck, title: "150-Point Inspection", body: "Every car is mechanically and cosmetically vetted before it lists." },
+            { icon: Wrench, title: "Service Warranty", body: "12-month limited powertrain warranty included on every vehicle." },
+            { icon: Sparkles, title: "Transparent Pricing", body: "No hidden fees. Out-the-door price quoted upfront, every time." },
           ].map(({ icon: Icon, title, body }) => (
             <div key={title} className="flex flex-col">
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary mb-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary mb-4">
                 <Icon className="h-5 w-5" />
               </div>
-              <h3 className="font-display text-xl font-semibold">{title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{body}</p>
+              <h3 className="font-display text-xl font-bold">{title}</h3>
+              <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{body}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-16 md:py-24">
+      <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
         <div className="relative overflow-hidden rounded-2xl bg-foreground text-background px-6 py-12 md:p-16">
           <div className="relative z-10 grid gap-6 md:grid-cols-2 md:items-center">
             <div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight">
+              <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight text-white">
                 Don't see the one?<br />Let us source it for you.
               </h2>
-              <p className="mt-3 text-background/70 max-w-md">
+              <p className="mt-3 text-white/70 max-w-md leading-relaxed">
                 Tell us what you're looking for and our buying team will hunt it down — at the right price.
               </p>
             </div>
             <div className="flex flex-wrap gap-3 md:justify-end">
               <Link
                 to="/contact"
-                className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-primary px-6 text-sm font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/90 transition-all duration-300"
               >
                 Get in touch
               </Link>
               <Link
                 to="/inventory"
-                className="inline-flex h-12 items-center justify-center rounded-md border border-background/30 px-6 text-sm font-semibold text-background hover:bg-background/10 transition-colors"
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/30 px-6 text-sm font-bold uppercase tracking-wider text-white hover:bg-white/10 transition-all duration-300"
               >
                 Browse inventory
               </Link>
@@ -144,3 +144,4 @@ function HomePage() {
     </SiteLayout>
   );
 }
+
