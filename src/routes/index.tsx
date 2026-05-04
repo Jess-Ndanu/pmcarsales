@@ -69,8 +69,10 @@ function HomePage() {
       <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
         <div className="flex items-end justify-between gap-4 mb-10 md:mb-14">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[1px] text-primary">Featured</p>
-            <h2 className="section-title mt-3 font-display text-3xl md:text-4xl">Featured Cars</h2>
+            <p className="text-sm font-semibold italic text-primary">Hand-picked</p>
+            <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold tracking-tight">
+              Featured Listings
+            </h2>
           </div>
           <Link
             to="/inventory"
