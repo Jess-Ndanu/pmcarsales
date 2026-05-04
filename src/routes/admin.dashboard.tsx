@@ -292,9 +292,10 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
       engine_size: parsed.data.engine_size || null,
       description: parsed.data.description || null,
       images,
+      features,
       featured: form.featured,
       sold: form.sold,
-    };
+    } as any;
     let error;
     if (car) {
       ({ error } = await supabase.from("cars").update(payload).eq("id", car.id));
