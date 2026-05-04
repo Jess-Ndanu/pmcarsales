@@ -22,10 +22,13 @@ export function SoldGallery() {
     <section className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
       <div className="flex items-end justify-between gap-4 mb-10 md:mb-14">
         <div>
-          <p className="text-sm font-semibold italic text-primary">Happy drivers</p>
+          <p className="text-sm font-semibold italic text-primary">Story-driven</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl font-extrabold tracking-tight">
-            Recently Sold
+            Successfully Matched
           </h2>
+          <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
+            Each vehicle tells a story. Here are the ones that have already found their next chapter.
+          </p>
         </div>
       </div>
 
