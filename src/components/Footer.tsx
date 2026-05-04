@@ -19,15 +19,15 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-[oklch(0.14_0.012_250)] text-white">
-      {/* Top accent bar */}
-      <div className="h-1 w-full bg-gradient-to-r from-primary via-primary/70 to-primary" />
+    <footer className="mt-24 bg-surface border-t border-border">
+      {/* Thin red accent bar — the only red up top */}
+      <div className="h-[3px] w-full bg-primary" />
 
       <div className="mx-auto max-w-7xl px-5 md:px-10 py-14 grid gap-10 md:grid-cols-12">
         {/* Brand */}
         <div className="md:col-span-4">
           <img src={logo} alt={`${DEALER_NAME} logo`} className="h-20 w-auto" />
-          <p className="mt-4 text-sm text-white/70 max-w-sm leading-relaxed">
+          <p className="mt-4 text-sm text-foreground max-w-sm leading-relaxed">
             {DEALER_TAGLINE}. Hand-picked vehicles, transparent pricing, and trusted service in Mombasa.
           </p>
 
@@ -39,7 +39,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-primary hover:text-primary-foreground"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition hover:border-primary hover:text-primary"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -49,8 +49,8 @@ export function Footer() {
 
         {/* Explore */}
         <div className="md:col-span-2">
-          <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-white">Explore</h4>
-          <ul className="space-y-2 text-sm text-white/70">
+          <h4 className="text-sm font-bold mb-4 uppercase tracking-wider text-heading">Explore</h4>
+          <ul className="space-y-2 text-sm text-foreground">
             <li><Link to="/" className="hover:text-primary transition">Home</Link></li>
             <li><Link to="/inventory" className="hover:text-primary transition">Inventory</Link></li>
             <li><Link to="/about" className="hover:text-primary transition">About us</Link></li>
@@ -60,20 +60,20 @@ export function Footer() {
 
         {/* Visit */}
         <div className="md:col-span-3">
-          <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-white">Visit</h4>
-          <p className="flex items-start gap-3 text-sm text-white/70">
-            <MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" />
+          <h4 className="text-sm font-bold mb-4 uppercase tracking-wider text-heading">Visit</h4>
+          <p className="flex items-start gap-3 text-sm text-foreground">
+            <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground shrink-0" />
             <span>{DEALER_ADDRESS}</span>
           </p>
         </div>
 
         {/* Contact */}
         <div className="md:col-span-3">
-          <h4 className="text-sm font-semibold mb-4 uppercase tracking-wider text-white">Get in touch</h4>
-          <ul className="space-y-3 text-sm text-white/70">
+          <h4 className="text-sm font-bold mb-4 uppercase tracking-wider text-heading">Get in touch</h4>
+          <ul className="space-y-3 text-sm text-foreground">
             <li>
               <a href={`tel:${DEALER_PHONE.replace(/\s/g, "")}`} className="flex items-center gap-3 hover:text-primary transition">
-                <Phone className="h-4 w-4 text-primary" />
+                <Phone className="h-4 w-4 text-muted-foreground" />
                 {DEALER_PHONE}
               </a>
             </li>
@@ -84,13 +84,13 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 hover:text-primary transition"
               >
-                <MessageCircle className="h-4 w-4 text-primary" />
+                <MessageCircle className="h-4 w-4 text-muted-foreground" />
                 Chat on WhatsApp
               </a>
             </li>
             <li>
               <a href={`mailto:${DEALER_EMAIL}`} className="flex items-center gap-3 hover:text-primary transition break-all">
-                <Mail className="h-4 w-4 text-primary shrink-0" />
+                <Mail className="h-4 w-4 text-muted-foreground shrink-0" />
                 {DEALER_EMAIL}
               </a>
             </li>
@@ -98,12 +98,12 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="border-t border-border bg-background">
         <div className="mx-auto max-w-7xl px-5 md:px-10 py-5 flex flex-col md:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-white/60">
+          <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} {DEALER_NAME}. All rights reserved.
           </p>
-          <p className="text-xs text-white/60">
+          <p className="text-xs text-muted-foreground">
             {DEALER_TAGLINE} — Mombasa, Kenya
           </p>
         </div>
