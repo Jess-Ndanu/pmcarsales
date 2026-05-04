@@ -10,11 +10,14 @@ export const Route = createFileRoute("/inventory/$carId")({
   component: CarDetailPage,
   errorComponent: ({ error, reset }) => {
     const router = useRouter();
+    if (import.meta.env.DEV) {
+      console.error("Inventory detail error:", error);
+    }
     return (
       <SiteLayout>
         <div className="mx-auto max-w-2xl px-4 md:px-8 py-20 text-center">
           <h1 className="font-display text-3xl font-bold">Something went wrong</h1>
-          <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+          <p className="mt-2 text-sm text-muted-foreground">An error occurred loading this vehicle. Please try again.</p>
           <button
             onClick={() => { router.invalidate(); reset(); }}
             className="mt-6 inline-flex h-11 items-center rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground"

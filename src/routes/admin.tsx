@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { adminBootstrapped } from "@/server/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -13,6 +14,7 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex" },
     ],
   }),
+  loader: async () => adminBootstrapped(),
   component: AdminAuthPage,
 });
 
@@ -25,6 +27,8 @@ function AdminAuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isAdmin, loading } = useAuth();
+  const { bootstrapped } = Route.useLoaderData();
+  const allowSignup = !bootstrapped;
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,6 +54,11 @@ function AdminAuthPage() {
     setSubmitting(true);
 
     if (mode === "signup") {
+      if (!allowSignup) {
+        setSubmitting(false);
+        toast.error("Sign-up is disabled.");
+        return;
+      }
       const { error } = await supabase.auth.signUp({
         email: parsed.data.email,
         password: parsed.data.password,
@@ -60,7 +69,7 @@ function AdminAuthPage() {
         toast.error(error.message);
         return;
       }
-      toast.success("Account created. The first signup is automatically admin.");
+      toast.success("Account created.");
     } else {
       const { error } = await supabase.auth.signInWithPassword({
         email: parsed.data.email,
@@ -107,9 +116,7 @@ function AdminAuthPage() {
       <div className="mx-auto max-w-md px-4 py-16 md:py-24">
         <Link to="/" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary">← Back to site</Link>
         <h1 className="mt-3 font-display text-3xl font-bold">{mode === "signin" ? "Admin sign in" : "Create admin account"}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          {mode === "signin" ? "Restricted access." : "First account becomes admin automatically."}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">Restricted access.</p>
 
         <form onSubmit={submit} className="mt-6 space-y-3 rounded-xl border border-border bg-card p-6 shadow-card">
           <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className={fieldCls} required maxLength={255} />
@@ -123,12 +130,14 @@ function AdminAuthPage() {
           </button>
         </form>
 
-        <button
-          onClick={() => setMode((m) => (m === "signin" ? "signup" : "signin"))}
-          className="mt-4 w-full text-sm text-muted-foreground hover:text-primary"
-        >
-          {mode === "signin" ? "No account? Create one" : "Have an account? Sign in"}
-        </button>
+        {allowSignup && (
+          <button
+            onClick={() => setMode((m) => (m === "signin" ? "signup" : "signin"))}
+            className="mt-4 w-full text-sm text-muted-foreground hover:text-primary"
+          >
+            {mode === "signin" ? "No account? Create one" : "Have an account? Sign in"}
+          </button>
+        )}
       </div>
     </SiteLayout>
   );
