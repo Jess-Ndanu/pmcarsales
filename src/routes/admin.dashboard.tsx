@@ -303,6 +303,7 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
       description: parsed.data.description || null,
       images,
       features,
+      safety_features: safetyFeatures,
       featured: form.featured,
       sold: form.sold,
     } as any;
