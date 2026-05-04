@@ -81,12 +81,14 @@ function AdminDashboard() {
             <p className="mt-1 text-sm text-muted-foreground">Signed in as {user?.email}</p>
           </div>
           <div className="flex gap-2">
-            <button
-              onClick={() => { setEditing(null); setShowForm(true); }}
-              className="inline-flex h-10 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
-            >
-              <Plus className="h-4 w-4" /> New car
-            </button>
+            {tab === "cars" && (
+              <button
+                onClick={() => { setEditing(null); setShowForm(true); }}
+                className="inline-flex h-10 items-center gap-1.5 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+              >
+                <Plus className="h-4 w-4" /> New car
+              </button>
+            )}
             <button
               onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }}
               className="inline-flex h-10 items-center gap-1.5 rounded-md border border-border bg-background px-4 text-sm font-medium hover:border-primary"
@@ -96,62 +98,89 @@ function AdminDashboard() {
           </div>
         </div>
 
-        <div className="mt-8 rounded-xl border border-border bg-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-surface text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                <tr>
-                  <th className="px-5 py-3">Vehicle</th>
-                  <th className="px-5 py-3">Year</th>
-                  <th className="px-5 py-3">Price</th>
-                  <th className="px-5 py-3">Status</th>
-                  <th className="px-5 py-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {loading ? (
-                  <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">Loading…</td></tr>
-                ) : cars.length === 0 ? (
-                  <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">No cars yet. Add your first listing.</td></tr>
-                ) : cars.map((car) => (
-                  <tr key={car.id}>
-                    <td className="px-5 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="h-12 w-16 overflow-hidden rounded bg-muted">
-                          {car.images?.[0] && <img src={car.images[0]} alt="" className="h-full w-full object-cover" />}
-                        </div>
-                        <div>
-                          <p className="font-semibold">{car.make} {car.model}</p>
-                          <p className="text-xs text-muted-foreground">{car.body_type} · {car.color}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-5 py-4">{car.year}</td>
-                    <td className="px-5 py-4 font-semibold">{formatPrice(Number(car.price))}</td>
-                    <td className="px-5 py-4">
-                      <div className="flex flex-wrap gap-1">
-                        {car.featured && <span className="inline-flex rounded bg-primary/10 text-primary px-2 py-0.5 text-xs font-semibold">Featured</span>}
-                        {car.sold && <span className="inline-flex rounded bg-foreground text-background px-2 py-0.5 text-xs font-semibold">Sold</span>}
-                      </div>
-                    </td>
-                    <td className="px-5 py-4">
-                      <div className="flex justify-end gap-1">
-                        <button onClick={() => toggleFeatured(car)} title="Toggle featured" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
-                          {car.featured ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
-                        </button>
-                        <button onClick={() => { setEditing(car); setShowForm(true); }} title="Edit" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
-                          <Pencil className="h-4 w-4" />
-                        </button>
-                        <button onClick={() => remove(car)} title="Delete" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-destructive/10 hover:text-destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="mt-8 flex flex-wrap gap-1 border-b border-border">
+          {([
+            { id: "cars", label: "Cars" },
+            { id: "gallery", label: "Sold Gallery" },
+            { id: "testimonials", label: "Testimonials" },
+          ] as const).map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`px-4 py-2.5 text-sm font-semibold border-b-2 -mb-px transition-colors ${
+                tab === t.id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          {tab === "cars" && (
+            <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-surface text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <tr>
+                      <th className="px-5 py-3">Vehicle</th>
+                      <th className="px-5 py-3">Year</th>
+                      <th className="px-5 py-3">Price</th>
+                      <th className="px-5 py-3">Status</th>
+                      <th className="px-5 py-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {loading ? (
+                      <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">Loading…</td></tr>
+                    ) : cars.length === 0 ? (
+                      <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">No cars yet. Add your first listing.</td></tr>
+                    ) : cars.map((car) => (
+                      <tr key={car.id}>
+                        <td className="px-5 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="h-12 w-16 overflow-hidden rounded bg-muted">
+                              {car.images?.[0] && <img src={car.images[0]} alt="" className="h-full w-full object-cover" />}
+                            </div>
+                            <div>
+                              <p className="font-semibold">{car.make} {car.model}</p>
+                              <p className="text-xs text-muted-foreground">{car.body_type} · {car.color}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-5 py-4">{car.year}</td>
+                        <td className="px-5 py-4 font-semibold">{formatPrice(Number(car.price))}</td>
+                        <td className="px-5 py-4">
+                          <div className="flex flex-wrap gap-1">
+                            {car.featured && <span className="inline-flex rounded bg-primary/10 text-primary px-2 py-0.5 text-xs font-semibold">Featured</span>}
+                            {car.sold && <span className="inline-flex rounded bg-foreground text-background px-2 py-0.5 text-xs font-semibold">Sold</span>}
+                          </div>
+                        </td>
+                        <td className="px-5 py-4">
+                          <div className="flex justify-end gap-1">
+                            <button onClick={() => toggleFeatured(car)} title="Toggle featured" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
+                              {car.featured ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
+                            </button>
+                            <button onClick={() => { setEditing(car); setShowForm(true); }} title="Edit" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
+                              <Pencil className="h-4 w-4" />
+                            </button>
+                            <button onClick={() => remove(car)} title="Delete" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-destructive/10 hover:text-destructive">
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {tab === "gallery" && <SoldGalleryManager />}
+          {tab === "testimonials" && <TestimonialsManager />}
         </div>
       </div>
 
