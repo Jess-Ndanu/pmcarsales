@@ -141,7 +141,7 @@ function CarDetailPage() {
               <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-primary">{formatPrice(Number(car.price))}</p>
             </div>
 
-            <div className="mt-8 rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
+            <div className="mt-8 rounded-2xl bg-muted/60 border border-border p-6 md:p-8">
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                 {specs.map(({ label, value }) => (
                   <div key={label} className="grid grid-cols-[120px_1fr] items-start gap-3">
