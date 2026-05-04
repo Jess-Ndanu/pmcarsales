@@ -34,15 +34,15 @@ export function CarCard({ car }: { car: Car }) {
         )}
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-semibold leading-tight text-foreground">
-          {car.year} {car.make} {car.model}
+        <h3 className="font-display text-lg font-bold leading-tight text-foreground">
+          {car.make} {car.model}
         </h3>
         <p className="mt-2 font-display text-xl font-bold text-primary leading-none">
           {formatPrice(Number(car.price))}
         </p>
         {car.condition && (
           <div className="mt-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1.5 text-xs font-semibold border border-primary/20">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-primary px-3 py-1.5 text-xs font-bold border border-primary/20">
               <MapPin className="h-3.5 w-3.5" /> {car.condition}
             </span>
           </div>
