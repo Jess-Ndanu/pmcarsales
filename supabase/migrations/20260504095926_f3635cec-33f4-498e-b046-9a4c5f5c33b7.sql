@@ -1,0 +1,3 @@
+ALTER TABLE public.cars
+  ADD COLUMN IF NOT EXISTS condition TEXT,
+  ADD COLUMN IF NOT EXISTS engine_size TEXT;
