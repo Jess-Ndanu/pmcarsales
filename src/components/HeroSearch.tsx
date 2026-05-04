@@ -35,16 +35,16 @@ export function HeroSearch() {
   };
 
   const fieldCls =
-    "h-12 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary";
+    "h-14 w-full rounded-xl border border-border bg-background px-4 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-shadow";
 
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-2xl bg-background/95 backdrop-blur p-4 md:p-5 shadow-2xl border border-border/50"
+      className="rounded-2xl bg-background/95 backdrop-blur p-5 md:p-6 shadow-2xl border border-border/50"
     >
-      <div className="grid gap-3 md:grid-cols-5 md:gap-3">
-        <div className="md:col-span-1">
-          <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+      <div className="grid gap-3 md:grid-cols-5 md:gap-4">
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground/70 mb-1.5">
             Make
           </label>
           <select value={make} onChange={(e) => setMake(e.target.value)} className={fieldCls}>
@@ -53,8 +53,8 @@ export function HeroSearch() {
             ))}
           </select>
         </div>
-        <div className="md:col-span-1">
-          <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground/70 mb-1.5">
             Model
           </label>
           <input
@@ -65,8 +65,8 @@ export function HeroSearch() {
             maxLength={60}
           />
         </div>
-        <div className="md:col-span-1">
-          <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground/70 mb-1.5">
             Year
           </label>
           <select value={year} onChange={(e) => setYear(e.target.value)} className={fieldCls}>
@@ -75,8 +75,8 @@ export function HeroSearch() {
             ))}
           </select>
         </div>
-        <div className="md:col-span-1">
-          <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-foreground/70 mb-1.5">
             Price
           </label>
           <select value={price} onChange={(e) => setPrice(e.target.value)} className={fieldCls}>
@@ -85,10 +85,10 @@ export function HeroSearch() {
             ))}
           </select>
         </div>
-        <div className="md:col-span-1 flex items-end">
+        <div className="flex items-end">
           <button
             type="submit"
-            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors shadow-glow"
+            className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary/90 transition-all duration-300 ease-in-out shadow-glow hover:shadow-lg"
           >
             <Search className="h-4 w-4" />
             Search
@@ -98,3 +98,4 @@ export function HeroSearch() {
     </form>
   );
 }
+
