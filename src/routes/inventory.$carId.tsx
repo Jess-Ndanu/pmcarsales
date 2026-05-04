@@ -1,8 +1,6 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
-import { z } from "zod";
-import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -162,9 +160,9 @@ function CarDetailPage() {
             )}
           </div>
 
-          {/* Inquiry form */}
+          {/* WhatsApp CTA */}
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <InquiryForm carId={car.id} carName={`${car.year} ${car.make} ${car.model}`} />
+            <WhatsAppCTA carName={`${car.year} ${car.make} ${car.model}`} />
           </aside>
         </div>
       </div>
@@ -172,63 +170,18 @@ function CarDetailPage() {
   );
 }
 
-const inquirySchema = z.object({
-  name: z.string().trim().min(1, "Name required").max(120),
-  email: z.string().trim().email("Invalid email").max(255),
-  phone: z.string().trim().max(40).optional().or(z.literal("")),
-  message: z.string().trim().min(1, "Message required").max(2000),
-});
-
-function InquiryForm({ carId, carName }: { carId: string; carName: string }) {
-  const [submitting, setSubmitting] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState(`Hi, I'm interested in the ${carName}. Is it still available?`);
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const parsed = inquirySchema.safeParse({ name, email, phone, message });
-    if (!parsed.success) {
-      toast.error(parsed.error.errors[0]?.message ?? "Check the form");
-      return;
-    }
-    setSubmitting(true);
-    const { error } = await supabase.from("inquiries").insert({
-      car_id: carId,
-      name: parsed.data.name,
-      email: parsed.data.email,
-      phone: parsed.data.phone || null,
-      message: parsed.data.message,
-    });
-    setSubmitting(false);
-    if (error) {
-      toast.error("Couldn't send. Please try again.");
-      return;
-    }
-    toast.success("Inquiry sent! We'll get back to you shortly.");
-    setName(""); setEmail(""); setPhone("");
-    setMessage(`Hi, I'm interested in the ${carName}. Is it still available?`);
-  };
-
-  const fieldCls = "h-11 w-full rounded-md border border-border bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary";
-
+function WhatsAppCTA({ carName }: { carName: string }) {
+  const href = `https://wa.me/254712604775?text=${encodeURIComponent(`Hi, I'm interested in the ${carName}. Is it still available?`)}`;
   return (
-    <form onSubmit={onSubmit} className="rounded-xl border border-border bg-card p-6 shadow-card space-y-3">
-      <h3 className="font-display text-lg font-semibold">Inquire about this car</h3>
-      <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" className={fieldCls} required maxLength={120} />
-      <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className={fieldCls} required maxLength={255} />
-      <input value={phone} onChange={(e) => setPhone(e.target.value)} type="tel" placeholder="Phone (optional)" className={fieldCls} maxLength={40} />
-      <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={5} placeholder="Message" className="w-full rounded-md border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none" required maxLength={2000} />
-      <button
-        type="submit"
-        disabled={submitting}
-        className="w-full inline-flex h-11 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
-      >
-        {submitting ? "Sending…" : "Send inquiry"}
-      </button>
+    <div className="rounded-xl border border-border bg-card p-6 shadow-card space-y-4">
+      <div>
+        <h3 className="font-display text-lg font-semibold">Interested in this car?</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Chat with us directly on WhatsApp for the fastest response.
+        </p>
+      </div>
       <a
-        href={`https://wa.me/254712604775?text=${encodeURIComponent(`Hi, I'm interested in the ${carName}. Is it still available?`)}`}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         className="w-full inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#25D366] text-base font-semibold text-white hover:bg-[#1faa53] transition-colors"
@@ -238,6 +191,6 @@ function InquiryForm({ carId, carName }: { carId: string; carName: string }) {
         </svg>
         Chat via WhatsApp
       </a>
-    </form>
+    </div>
   );
 }
