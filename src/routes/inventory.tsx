@@ -241,7 +241,7 @@ function FilterSidebar(p: FilterProps) {
           <label className="block text-xs font-semibold mb-1.5">Make</label>
           <select value={p.make} onChange={(e) => p.setMake(e.target.value)} className={fieldCls}>
             <option value="">Any</option>
-            {["Audi","BMW","Ford","Mercedes-Benz","Porsche","Range Rover","Tesla","Volkswagen"].map((m) => (
+            {["Audi","BMW","Daihatsu","Ford","Honda","Mazda","Mercedes-Benz","Mitsubishi","Nissan","Peugeot","Porsche","Range Rover","Subaru","Toyota","Volkswagen","Volvo"].map((m) => (
               <option key={m} value={m}>{m}</option>
             ))}
           </select>

@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search } from "lucide-react";
 
-const MAKES = ["All Makes", "Audi", "BMW", "Ford", "Mercedes-Benz", "Porsche", "Range Rover", "Tesla", "Toyota", "Volkswagen"];
+const MAKES = ["All Makes", "Audi", "BMW", "Daihatsu", "Ford", "Honda", "Mazda", "Mercedes-Benz", "Mitsubishi", "Nissan", "Peugeot", "Porsche", "Range Rover", "Subaru", "Toyota", "Volkswagen", "Volvo"];
 const MODELS = ["All Models", "Sedan", "Coupe", "SUV", "Hatchback", "Convertible", "Truck"];
 const PRICES = [
   { label: "Max Price", value: "" },
