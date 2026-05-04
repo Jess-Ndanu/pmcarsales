@@ -15,6 +15,8 @@ const searchSchema = z.object({
   minPrice: z.string().optional(),
   maxPrice: z.string().optional(),
   maxMileage: z.string().optional(),
+  bodyType: z.string().optional(),
+  condition: z.string().optional(),
   page: z.string().optional(),
 });
 
