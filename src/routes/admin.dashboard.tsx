@@ -396,7 +396,7 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
         <div className="flex justify-end gap-2 border-t border-border px-6 py-4 bg-surface">
           <button type="button" onClick={onClose} className="inline-flex h-10 items-center rounded-md border border-border bg-background px-4 text-sm font-medium">Cancel</button>
           <button type="submit" disabled={saving} className="inline-flex h-10 items-center rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60">
-            {saving ? "Saving…" : car ? "Save changes" : "Create car"}
+            {saving ? "Saving…" : car ? "Update listing" : "Update listing"}
           </button>
         </div>
       </form>
