@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { adminBootstrapped } from "@/server/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -13,6 +14,7 @@ export const Route = createFileRoute("/admin")({
       { name: "robots", content: "noindex" },
     ],
   }),
+  loader: async () => adminBootstrapped(),
   component: AdminAuthPage,
 });
 
