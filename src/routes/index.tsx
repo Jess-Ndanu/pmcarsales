@@ -162,12 +162,14 @@ function HomePage() {
               <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-card p-8 md:p-12 text-center shadow-sm">
                 <h3 className="font-display text-2xl md:text-3xl font-bold">{title}</h3>
                 <p className="mt-4 text-base text-muted-foreground leading-relaxed">{body}</p>
-                <Link
-                  to="/contact"
+                <a
+                  href={`https://wa.me/${DEALER_WHATSAPP}?text=${encodeURIComponent(`Hi PM Car Sales, I'd like to know more about ${title}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-6 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-primary hover:gap-2.5 transition-all"
                 >
                   Talk to us <ArrowRight className="h-4 w-4" />
-                </Link>
+                </a>
               </div>
             </TabsContent>
           ))}
