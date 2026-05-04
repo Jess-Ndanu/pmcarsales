@@ -317,8 +317,8 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
             <div><label className={labelCls}>Make</label><input value={form.make} onChange={(e) => setForm({ ...form, make: e.target.value })} className={fieldCls} required maxLength={60} /></div>
             <div><label className={labelCls}>Model</label><input value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} className={fieldCls} required maxLength={60} /></div>
             <div><label className={labelCls}>Year</label><input type="number" value={form.year} onChange={(e) => setForm({ ...form, year: Number(e.target.value) })} className={fieldCls} required min={1900} max={2100} /></div>
-            <div><label className={labelCls}>Price (USD)</label><input type="number" value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} className={fieldCls} required min={0} step={100} /></div>
-            <div><label className={labelCls}>Mileage</label><input type="number" value={form.mileage} onChange={(e) => setForm({ ...form, mileage: Number(e.target.value) })} className={fieldCls} min={0} /></div>
+            <div><label className={labelCls}>Price (KSh)</label><input type="number" value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} className={fieldCls} required min={0} step={1000} /></div>
+            <div><label className={labelCls}>Mileage (km)</label><input type="number" value={form.mileage} onChange={(e) => setForm({ ...form, mileage: Number(e.target.value) })} className={fieldCls} min={0} placeholder="e.g. 45000" /></div>
             <div><label className={labelCls}>Body type</label><input value={form.body_type} onChange={(e) => setForm({ ...form, body_type: e.target.value })} className={fieldCls} maxLength={40} placeholder="Sedan, SUV…" /></div>
             <div>
               <label className={labelCls}>Fuel</label>
@@ -346,7 +346,7 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
                 ))}
               </select>
             </div>
-            <div><label className={labelCls}>Engine size</label><input value={form.engine_size} onChange={(e) => setForm({ ...form, engine_size: e.target.value })} className={fieldCls} maxLength={40} placeholder="2000cc, 1.8L…" /></div>
+            <div><label className={labelCls}>Engine size (cc)</label><input type="number" value={form.engine_size} onChange={(e) => setForm({ ...form, engine_size: e.target.value })} className={fieldCls} min={0} placeholder="e.g. 2000" /></div>
             <div className="sm:col-span-2">
               <label className={labelCls}>Condition</label>
               <select value={form.condition} onChange={(e) => setForm({ ...form, condition: e.target.value })} className={fieldCls}>
