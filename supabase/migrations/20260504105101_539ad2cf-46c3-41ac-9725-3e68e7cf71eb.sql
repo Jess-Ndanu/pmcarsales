@@ -1,0 +1,1 @@
+ALTER TABLE public.cars ADD COLUMN IF NOT EXISTS safety_features text[] NOT NULL DEFAULT '{}'::text[];
