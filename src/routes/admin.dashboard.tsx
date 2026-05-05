@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, LogOut, Pencil, Plus, Search, Trash2, Star, StarOff, Upload, X } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -339,6 +339,30 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
     setImages((prev) => prev.filter((u) => u !== url));
   };
 
+  const dragIndex = useRef<number | null>(null);
+  const onDragStart = (i: number) => { dragIndex.current = i; };
+  const onDragOver = (e: React.DragEvent) => { e.preventDefault(); };
+  const onDrop = (i: number) => {
+    const from = dragIndex.current;
+    dragIndex.current = null;
+    if (from === null || from === i) return;
+    setImages((prev) => {
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(i, 0, moved);
+      return next;
+    });
+  };
+  const moveImage = (i: number, dir: -1 | 1) => {
+    setImages((prev) => {
+      const j = i + dir;
+      if (j < 0 || j >= prev.length) return prev;
+      const next = [...prev];
+      [next[i], next[j]] = [next[j], next[i]];
+      return next;
+    });
+  };
+
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = carSchema.safeParse(form);
@@ -445,11 +469,25 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
           </div>
 
           <div>
-            <label className={labelCls}>Images</label>
+            <label className={labelCls}>Images <span className="text-muted-foreground font-normal">(drag to reorder — first image is the cover)</span></label>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mb-3">
-              {images.map((url) => (
-                <div key={url} className="relative group aspect-[4/3] overflow-hidden rounded border border-border bg-muted">
-                  <img src={url} alt="" className="h-full w-full object-cover" />
+              {images.map((url, i) => (
+                <div
+                  key={url}
+                  draggable
+                  onDragStart={() => onDragStart(i)}
+                  onDragOver={onDragOver}
+                  onDrop={() => onDrop(i)}
+                  className="relative group aspect-[4/3] overflow-hidden rounded border border-border bg-muted cursor-move"
+                >
+                  <img src={url} alt="" className="h-full w-full object-cover pointer-events-none" />
+                  {i === 0 && (
+                    <span className="absolute top-1 left-1 rounded bg-primary px-1.5 py-0.5 text-[10px] font-bold uppercase text-primary-foreground">Cover</span>
+                  )}
+                  <div className="absolute inset-x-0 bottom-0 flex justify-between bg-foreground/60 opacity-0 group-hover:opacity-100 transition">
+                    <button type="button" onClick={() => moveImage(i, -1)} disabled={i === 0} className="px-2 py-1 text-white text-xs disabled:opacity-30">◀</button>
+                    <button type="button" onClick={() => moveImage(i, 1)} disabled={i === images.length - 1} className="px-2 py-1 text-white text-xs disabled:opacity-30">▶</button>
+                  </div>
                   <button type="button" onClick={() => removeImage(url)} className="absolute top-1 right-1 h-7 w-7 inline-flex items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition">
                     <X className="h-3.5 w-3.5" />
                   </button>
