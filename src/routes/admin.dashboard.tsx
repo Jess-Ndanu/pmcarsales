@@ -140,63 +140,102 @@ function AdminDashboard() {
 
         <div className="mt-8">
           {tab === "cars" && (
-            <div className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-surface text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    <tr>
-                      <th className="px-5 py-3">Name</th>
-                      <th className="px-5 py-3">Make</th>
-                      <th className="px-5 py-3">Price</th>
-                      <th className="px-5 py-3">Status</th>
-                      <th className="px-5 py-3 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {loading ? (
-                      <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">Loading…</td></tr>
-                    ) : cars.length === 0 ? (
-                      <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">No cars yet. Add your first listing.</td></tr>
-                    ) : cars.map((car) => (
-                      <tr key={car.id}>
-                        <td className="px-5 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="h-12 w-16 overflow-hidden rounded bg-muted">
-                              {car.images?.[0] && <img src={car.images[0]} alt="" className="h-full w-full object-cover" />}
-                            </div>
-                            <div>
-                              <p className="font-semibold">{car.model}</p>
-                              <p className="text-xs text-muted-foreground">{car.year} · {car.color}</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-5 py-4">{car.make}</td>
-                        <td className="px-5 py-4 font-semibold">{formatPrice(Number(car.price))}</td>
-                        <td className="px-5 py-4">
-                          <div className="flex flex-wrap gap-1">
-                            {car.featured && <span className="inline-flex rounded bg-primary/10 text-primary px-2 py-0.5 text-xs font-semibold">Featured</span>}
-                            {car.sold && <span className="inline-flex rounded bg-foreground text-background px-2 py-0.5 text-xs font-semibold">Sold</span>}
-                          </div>
-                        </td>
-                        <td className="px-5 py-4">
-                          <div className="flex justify-end gap-1">
-                            <button onClick={() => toggleFeatured(car)} title="Toggle featured" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
-                              {car.featured ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
-                            </button>
-                            <button onClick={() => { setEditing(car); setShowForm(true); }} title="Edit" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
-                              <Pencil className="h-4 w-4" />
-                            </button>
-                            <button onClick={() => remove(car)} title="Delete" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-destructive/10 hover:text-destructive">
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <>
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div className="relative flex-1 min-w-[240px] max-w-md">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <input
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    placeholder="Search by make or model…"
+                    className="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {loading ? "Loading…" : `${totalCars} ${totalCars === 1 ? "car" : "cars"} total`}
+                </p>
               </div>
-            </div>
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-surface text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      <tr>
+                        <th className="px-5 py-3">Name</th>
+                        <th className="px-5 py-3">Make</th>
+                        <th className="px-5 py-3">Price</th>
+                        <th className="px-5 py-3">Status</th>
+                        <th className="px-5 py-3 text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {loading ? (
+                        <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">Loading…</td></tr>
+                      ) : cars.length === 0 ? (
+                        <tr><td colSpan={5} className="px-5 py-10 text-center text-muted-foreground">{searchTerm ? "No cars match your search." : "No cars yet. Add your first listing."}</td></tr>
+                      ) : cars.map((car) => (
+                        <tr key={car.id}>
+                          <td className="px-5 py-4">
+                            <div className="flex items-center gap-3">
+                              <div className="h-12 w-16 overflow-hidden rounded bg-muted">
+                                {car.images?.[0] && <img src={car.images[0]} alt="" className="h-full w-full object-cover" />}
+                              </div>
+                              <div>
+                                <p className="font-semibold">{car.model}</p>
+                                <p className="text-xs text-muted-foreground">{car.year} · {car.color}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-5 py-4">{car.make}</td>
+                          <td className="px-5 py-4 font-semibold">{formatPrice(Number(car.price))}</td>
+                          <td className="px-5 py-4">
+                            <div className="flex flex-wrap gap-1">
+                              {car.featured && <span className="inline-flex rounded bg-primary/10 text-primary px-2 py-0.5 text-xs font-semibold">Featured</span>}
+                              {car.sold && <span className="inline-flex rounded bg-foreground text-background px-2 py-0.5 text-xs font-semibold">Sold</span>}
+                            </div>
+                          </td>
+                          <td className="px-5 py-4">
+                            <div className="flex justify-end gap-1">
+                              <button onClick={() => toggleFeatured(car)} title="Toggle featured" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
+                                {car.featured ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
+                              </button>
+                              <button onClick={() => { setEditing(car); setShowForm(true); }} title="Edit" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-muted">
+                                <Pencil className="h-4 w-4" />
+                              </button>
+                              <button onClick={() => remove(car)} title="Delete" className="h-8 w-8 inline-flex items-center justify-center rounded hover:bg-destructive/10 hover:text-destructive">
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {totalCars > PAGE_SIZE && (
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <p className="text-xs text-muted-foreground">
+                    Page {page} of {Math.max(1, Math.ceil(totalCars / PAGE_SIZE))}
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={page === 1 || loading}
+                      className="inline-flex h-9 items-center gap-1 rounded-md border border-border bg-background px-3 text-sm font-medium hover:border-primary disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      <ChevronLeft className="h-4 w-4" /> Prev
+                    </button>
+                    <button
+                      onClick={() => setPage((p) => p + 1)}
+                      disabled={page >= Math.ceil(totalCars / PAGE_SIZE) || loading}
+                      className="inline-flex h-9 items-center gap-1 rounded-md border border-border bg-background px-3 text-sm font-medium hover:border-primary disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      Next <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           {tab === "gallery" && <SoldGalleryManager />}
