@@ -144,7 +144,7 @@ function CarDetailPage() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-primary">{car.year} · {car.body_type ?? "Vehicle"}</p>
               <h1 className="mt-2 font-display text-3xl md:text-4xl font-bold">{car.make} {car.model}</h1>
-              <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-primary">{formatPrice(Number(car.price))}</p>
+              <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-foreground">{formatPrice(Number(car.price))}</p>
             </div>
 
             <div className="rounded-2xl bg-muted/60 border border-border p-5 md:p-6">
