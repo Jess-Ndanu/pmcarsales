@@ -20,7 +20,6 @@ export function HeroSearch() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("All");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
-  const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
   const models = useMemo(() => (make ? MAKE_MODELS[make] ?? [] : []), [make]);
 
