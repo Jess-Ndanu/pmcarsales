@@ -12,6 +12,8 @@ const PRICES = [
   { label: "KES 10M+", value: "10000000-999999999" },
 ];
 
+const YEARS = ["", ...Array.from({ length: 16 }, (_, i) => String(new Date().getFullYear() - i))];
+
 const TABS = ["All", "New", "Used"] as const;
 
 export function HeroSearch() {
