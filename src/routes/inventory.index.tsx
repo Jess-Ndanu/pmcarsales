@@ -142,32 +142,7 @@ function InventoryPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-6 grid gap-6 lg:grid-cols-[260px_1fr]">
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setFiltersOpen(true)}
-          className="lg:hidden inline-flex items-center justify-center gap-2 h-11 rounded-md border border-border bg-background text-sm font-medium"
-        >
-          <SlidersHorizontal className="h-4 w-4" /> Filters
-          {activeCount > 0 && (
-            <span className="ml-1 rounded-full bg-primary text-primary-foreground px-2 text-xs">{activeCount}</span>
-          )}
-        </button>
-
-        <FilterSidebar
-          open={filtersOpen}
-          onClose={() => setFiltersOpen(false)}
-          make={make} setMake={(v) => { setMake(v); setModel(""); }}
-          model={model} setModel={setModel}
-          models={models} loadingModels={loadingModels}
-          year={year} setYear={setYear}
-          minPrice={minPrice} setMinPrice={setMinPrice}
-          maxPrice={maxPrice} setMaxPrice={setMaxPrice}
-          maxMileage={maxMileage} setMaxMileage={setMaxMileage}
-          onApply={apply}
-          onClear={clear}
-          activeCount={activeCount}
-        />
+      <section className="mx-auto max-w-7xl px-4 md:px-8 py-6">
 
         <div>
           {loading ? (
