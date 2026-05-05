@@ -37,7 +37,7 @@ export function CarCard({ car }: { car: Car }) {
         <h3 className="font-display text-lg font-bold leading-tight text-foreground">
           {car.make} {car.model}
         </h3>
-        <p className="mt-2 font-display text-xl font-bold text-primary leading-none">
+        <p className="mt-2 font-display text-xl font-bold text-foreground leading-none">
           {formatPrice(Number(car.price))}
         </p>
         {car.condition && (
