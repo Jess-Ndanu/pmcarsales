@@ -296,15 +296,6 @@ function FilterSidebar(p: FilterProps) {
           </select>
         </div>
         <div>
-          <label className="block text-xs font-semibold mb-1.5">Year</label>
-          <select value={p.year} onChange={(e) => p.setYear(e.target.value)} className={fieldCls}>
-            <option value="">Any</option>
-            {["2024","2023","2022","2021","2020","2019","2018"].map((y) => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
-        </div>
-        <div>
           <label className="block text-xs font-semibold mb-1.5">Price range</label>
           <div className="grid grid-cols-2 gap-2">
             <input value={p.minPrice} onChange={(e) => p.setMinPrice(e.target.value)} placeholder="Min" type="number" min={0} className={fieldCls} />
