@@ -74,7 +74,7 @@ function InventoryPage() {
     supabase
       .from("cars")
       .select("model")
-      .eq("make", make)
+      .ilike("make", make)
       .then(({ data }) => {
         if (cancelled) return;
         const unique = Array.from(new Set((data ?? []).map((r) => r.model).filter(Boolean))).sort();
