@@ -12,6 +12,7 @@ const PRICES = [
   { label: "KES 10M+", value: "10000000-999999999" },
 ];
 
+const YEARS = Array.from({ length: 16 }, (_, i) => String(new Date().getFullYear() - i));
 
 const TABS = ["All", "New", "Used"] as const;
 
@@ -20,6 +21,7 @@ export function HeroSearch() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("All");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
   const models = useMemo(() => (make ? MAKE_MODELS[make] ?? [] : []), [make]);
 
@@ -28,7 +30,7 @@ export function HeroSearch() {
     const search: Record<string, string> = {};
     if (make) search.make = make;
     if (model) search.model = model;
-    
+    if (year) search.year = year;
     if (price) {
       const [min, max] = price.split("-");
       search.minPrice = min;
@@ -91,6 +93,15 @@ export function HeroSearch() {
             </option>
             {models.map((m) => (
               <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
+          <Chevron />
+        </div>
+        <div className="relative flex-1 flex items-center border-r border-border/70">
+          <select value={year} onChange={(e) => setYear(e.target.value)} className={selectCls}>
+            <option value="">Any Year</option>
+            {YEARS.map((y) => (
+              <option key={y} value={y}>{y}</option>
             ))}
           </select>
           <Chevron />
