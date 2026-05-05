@@ -107,6 +107,37 @@ function HomePage() {
         )}
       </section>
 
+      {/* Trade-In Cars */}
+      {tradeIns.length > 0 && (
+        <section className="bg-surface">
+          <div className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
+            <div className="flex items-end justify-between gap-4 mb-10 md:mb-14">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3">Customer trade-ins</p>
+                <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight">
+                  Trade-In Cars
+                </h2>
+                <p className="mt-3 max-w-xl text-base text-muted-foreground leading-relaxed">
+                  Quality vehicles taken in from our customers — inspected and ready for a new owner.
+                </p>
+              </div>
+              <Link
+                to="/inventory"
+                search={{ condition: "trade-in" }}
+                className="hidden sm:inline-flex items-center gap-1 text-sm font-bold uppercase tracking-wider text-foreground hover:text-primary transition-colors"
+              >
+                View all <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {tradeIns.map((car) => (
+                <CarCard key={car.id} car={car} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Why Choose Us */}
       <section className="bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-5 md:px-10 py-[60px] md:py-24">
