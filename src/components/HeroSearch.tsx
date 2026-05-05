@@ -1,9 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-
-const MAKES = ["All Makes", "Audi", "BMW", "Daihatsu", "Ford", "Honda", "Mazda", "Mercedes-Benz", "Mitsubishi", "Nissan", "Peugeot", "Porsche", "Range Rover", "Subaru", "Suzuki", "Toyota", "Volkswagen", "Volvo"];
+import { MAKES, MAKE_MODELS } from "@/lib/carMakes";
 
 const PRICES = [
   { label: "Max Price", value: "" },
@@ -22,32 +20,7 @@ export function HeroSearch() {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [price, setPrice] = useState("");
-  const [models, setModels] = useState<string[]>([]);
-  const [loadingModels, setLoadingModels] = useState(false);
-
-  useEffect(() => {
-    if (!make) {
-      setModels([]);
-      setModel("");
-      return;
-    }
-    let cancelled = false;
-    setLoadingModels(true);
-    supabase
-      .from("cars")
-      .select("model")
-      .eq("make", make)
-      .then(({ data }) => {
-        if (cancelled) return;
-        const unique = Array.from(new Set((data ?? []).map((r) => r.model).filter(Boolean))).sort();
-        setModels(unique);
-        setModel("");
-        setLoadingModels(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [make]);
+  const models = useMemo(() => (make ? MAKE_MODELS[make] ?? [] : []), [make]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,16 +78,14 @@ export function HeroSearch() {
             value={model}
             onChange={(e) => setModel(e.target.value)}
             className={selectCls}
-            disabled={!make || loadingModels}
+            disabled={!make}
           >
             <option value="">
               {!make
                 ? "Select Make first"
-                : loadingModels
-                  ? "Loading…"
-                  : models.length === 0
-                    ? "No models"
-                    : "All Models"}
+                : models.length === 0
+                  ? "No models"
+                  : "All Models"}
             </option>
             {models.map((m) => (
               <option key={m} value={m}>{m}</option>
