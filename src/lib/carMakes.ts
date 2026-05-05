@@ -9,7 +9,7 @@ export const MAKE_MODELS: Record<string, string[]> = {
   Honda: ["Accord", "Civic", "CR-V", "Fit", "Freed", "HR-V", "Insight", "Jazz", "Odyssey", "Pilot", "Stepwgn", "Stream", "Vezel"],
   Isuzu: ["D-Max", "MU-X", "NPR", "Trooper"],
   Jeep: ["Cherokee", "Compass", "Grand Cherokee", "Renegade", "Wrangler"],
-  Land Rover: ["Defender", "Discovery", "Discovery Sport", "Freelander", "Range Rover", "Range Rover Evoque", "Range Rover Sport", "Range Rover Velar"],
+  "Land Rover": ["Defender", "Discovery", "Discovery Sport", "Freelander", "Range Rover", "Range Rover Evoque", "Range Rover Sport", "Range Rover Velar"],
   Lexus: ["CT", "ES", "GS", "GX", "IS", "LS", "LX", "NX", "RC", "RX", "UX"],
   Mazda: ["Atenza", "Axela", "Bongo", "BT-50", "CX-3", "CX-30", "CX-5", "CX-7", "CX-8", "CX-9", "Demio", "Mazda 2", "Mazda 3", "Mazda 6", "MX-5", "Premacy"],
   "Mercedes-Benz": ["A-Class", "B-Class", "C-Class", "CLA", "CLS", "E-Class", "G-Class", "GLA", "GLB", "GLC", "GLE", "GLS", "S-Class", "SL", "Sprinter", "V-Class"],
