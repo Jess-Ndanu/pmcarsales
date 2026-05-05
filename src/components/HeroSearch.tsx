@@ -78,16 +78,14 @@ export function HeroSearch() {
             value={model}
             onChange={(e) => setModel(e.target.value)}
             className={selectCls}
-            disabled={!make || loadingModels}
+            disabled={!make}
           >
             <option value="">
               {!make
                 ? "Select Make first"
-                : loadingModels
-                  ? "Loading…"
-                  : models.length === 0
-                    ? "No models"
-                    : "All Models"}
+                : models.length === 0
+                  ? "No models"
+                  : "All Models"}
             </option>
             {models.map((m) => (
               <option key={m} value={m}>{m}</option>
