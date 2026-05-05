@@ -339,6 +339,30 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
     setImages((prev) => prev.filter((u) => u !== url));
   };
 
+  const dragIndex = useRef<number | null>(null);
+  const onDragStart = (i: number) => { dragIndex.current = i; };
+  const onDragOver = (e: React.DragEvent) => { e.preventDefault(); };
+  const onDrop = (i: number) => {
+    const from = dragIndex.current;
+    dragIndex.current = null;
+    if (from === null || from === i) return;
+    setImages((prev) => {
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(i, 0, moved);
+      return next;
+    });
+  };
+  const moveImage = (i: number, dir: -1 | 1) => {
+    setImages((prev) => {
+      const j = i + dir;
+      if (j < 0 || j >= prev.length) return prev;
+      const next = [...prev];
+      [next[i], next[j]] = [next[j], next[i]];
+      return next;
+    });
+  };
+
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = carSchema.safeParse(form);
