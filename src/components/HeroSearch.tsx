@@ -97,6 +97,15 @@ export function HeroSearch() {
           </select>
           <Chevron />
         </div>
+        <div className="relative flex-1 flex items-center border-r border-border/70">
+          <select value={year} onChange={(e) => setYear(e.target.value)} className={selectCls}>
+            <option value="">Any Year</option>
+            {YEARS.map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+          <Chevron />
+        </div>
         <div className="relative flex-1 flex items-center">
           <select value={price} onChange={(e) => setPrice(e.target.value)} className={selectCls}>
             {PRICES.map((p) => (
