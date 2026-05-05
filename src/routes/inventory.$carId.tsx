@@ -164,6 +164,13 @@ function CarDetailPage() {
 
         {/* Features, Safety & Description — full width below */}
         <div className="mt-12 max-w-4xl">
+          {car.description && (
+            <div className="mt-8">
+              <h2 className="font-display text-2xl font-bold mb-4">Description</h2>
+              <p className="text-foreground/80 leading-relaxed whitespace-pre-line">{car.description}</p>
+            </div>
+          )}
+
           {(car as any).features && (car as any).features.length > 0 && (
             <div className="mt-8">
               <h2 className="font-display text-2xl font-bold mb-4">Features</h2>
@@ -191,13 +198,6 @@ function CarDetailPage() {
                   ))}
                 </div>
               </div>
-            </div>
-          )}
-
-          {car.description && (
-            <div className="mt-8">
-              <h2 className="font-display text-lg font-semibold mb-3">Description</h2>
-              <p className="text-foreground/80 leading-relaxed whitespace-pre-line">{car.description}</p>
             </div>
           )}
         </div>
