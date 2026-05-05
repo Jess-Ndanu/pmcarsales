@@ -133,16 +133,16 @@ function InventoryPage() {
   return (
     <SiteLayout>
       <section className="border-b border-border bg-surface">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 py-10 md:py-14">
+        <div className="mx-auto max-w-7xl px-4 md:px-8 py-6 md:py-8">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inventory</p>
           <h1 className="mt-2 font-display text-3xl md:text-5xl font-bold">All vehicles</h1>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground">
             {loading ? "Loading…" : `${count} ${count === 1 ? "vehicle" : "vehicles"} available`}
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 md:px-8 py-10 grid gap-8 lg:grid-cols-[260px_1fr]">
+      <section className="mx-auto max-w-7xl px-4 md:px-8 py-6 grid gap-6 lg:grid-cols-[260px_1fr]">
         {/* Mobile toggle */}
         <button
           onClick={() => setFiltersOpen(true)}
