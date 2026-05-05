@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { LogOut, Pencil, Plus, Trash2, Star, StarOff, Upload, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LogOut, Pencil, Plus, Search, Trash2, Star, StarOff, Upload, X } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
