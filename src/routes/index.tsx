@@ -26,6 +26,7 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const [featured, setFeatured] = useState<Tables<"cars">[]>([]);
+  const [tradeIns, setTradeIns] = useState<Tables<"cars">[]>([]);
 
   useEffect(() => {
     supabase
@@ -35,6 +36,15 @@ function HomePage() {
       .order("created_at", { ascending: false })
       .limit(6)
       .then(({ data }) => setFeatured(data ?? []));
+
+    supabase
+      .from("cars")
+      .select("*")
+      .ilike("condition", "%trade%")
+      .eq("sold", false)
+      .order("created_at", { ascending: false })
+      .limit(6)
+      .then(({ data }) => setTradeIns(data ?? []));
   }, []);
 
   return (
