@@ -74,7 +74,7 @@ function InventoryPage() {
     supabase
       .from("cars")
       .select("model")
-      .eq("make", make)
+      .ilike("make", make)
       .then(({ data }) => {
         if (cancelled) return;
         const unique = Array.from(new Set((data ?? []).map((r) => r.model).filter(Boolean))).sort();
@@ -90,7 +90,7 @@ function InventoryPage() {
     let cancelled = false;
     setLoading(true);
     let q = supabase.from("cars").select("*", { count: "exact" });
-    if (search.make) q = q.eq("make", search.make);
+    if (search.make) q = q.ilike("make", search.make);
     if (search.model) q = q.ilike("model", `%${search.model}%`);
     if (search.year) q = q.eq("year", Number(search.year));
     if (search.minPrice) q = q.gte("price", Number(search.minPrice));
