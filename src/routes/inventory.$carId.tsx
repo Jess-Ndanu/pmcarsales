@@ -100,8 +100,8 @@ function CarDetailPage() {
           <ArrowLeft className="h-4 w-4" /> Back to inventory
         </Link>
 
-        <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
-          {/* Gallery + content */}
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+          {/* Gallery */}
           <div>
             <div className="relative overflow-hidden rounded-2xl bg-muted aspect-[16/10]">
               <img
@@ -137,17 +137,20 @@ function CarDetailPage() {
                 ))}
               </div>
             )}
+          </div>
 
-            <div className="mt-8">
+          {/* Title + price + specs + CTA — next to gallery */}
+          <aside className="space-y-6">
+            <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-primary">{car.year} · {car.body_type ?? "Vehicle"}</p>
               <h1 className="mt-2 font-display text-3xl md:text-4xl font-bold">{car.make} {car.model}</h1>
               <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-primary">{formatPrice(Number(car.price))}</p>
             </div>
 
-            <div className="mt-8 rounded-2xl bg-muted/60 border border-border p-6 md:p-8">
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+            <div className="rounded-2xl bg-muted/60 border border-border p-5 md:p-6">
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
                 {specs.map(({ label, value }) => (
-                  <div key={label} className="grid grid-cols-[120px_1fr] items-start gap-3">
+                  <div key={label} className="grid grid-cols-[110px_1fr] items-start gap-2">
                     <dt className="text-sm font-bold text-foreground">{label}:</dt>
                     <dd className="text-sm text-foreground/80">{value}</dd>
                   </div>
@@ -155,49 +158,50 @@ function CarDetailPage() {
               </dl>
             </div>
 
-            {(car as any).features && (car as any).features.length > 0 && (
-              <div className="mt-8">
-                <h2 className="font-display text-2xl font-bold mb-4">Features</h2>
-                <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
-                  <div className="flex flex-wrap gap-3">
-                    {((car as any).features as string[]).map((f) => (
-                      <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {(car as any).safety_features && (car as any).safety_features.length > 0 && (
-              <div className="mt-8">
-                <h2 className="font-display text-2xl font-bold mb-4">Safety Features</h2>
-                <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
-                  <div className="flex flex-wrap gap-3">
-                    {((car as any).safety_features as string[]).map((f) => (
-                      <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {car.description && (
-              <div className="mt-8">
-                <h2 className="font-display text-lg font-semibold mb-3">Description</h2>
-                <p className="text-foreground/80 leading-relaxed whitespace-pre-line">{car.description}</p>
-              </div>
-            )}
-          </div>
-
-          {/* WhatsApp CTA */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
             <WhatsAppCTA carName={`${car.year} ${car.make} ${car.model}`} />
           </aside>
         </div>
+
+        {/* Features / Safety / Description — full width below */}
+        <div className="mt-12 max-w-4xl">
+          {(car as any).features && (car as any).features.length > 0 && (
+            <div className="mt-8">
+              <h2 className="font-display text-2xl font-bold mb-4">Features</h2>
+              <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
+                <div className="flex flex-wrap gap-3">
+                  {((car as any).features as string[]).map((f) => (
+                    <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {(car as any).safety_features && (car as any).safety_features.length > 0 && (
+            <div className="mt-8">
+              <h2 className="font-display text-2xl font-bold mb-4">Safety Features</h2>
+              <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
+                <div className="flex flex-wrap gap-3">
+                  {((car as any).safety_features as string[]).map((f) => (
+                    <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {car.description && (
+            <div className="mt-8">
+              <h2 className="font-display text-lg font-semibold mb-3">Description</h2>
+              <p className="text-foreground/80 leading-relaxed whitespace-pre-line">{car.description}</p>
+            </div>
+          )}
+        </div>
+
       </div>
     </SiteLayout>
   );
