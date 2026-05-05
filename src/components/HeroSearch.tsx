@@ -21,6 +21,7 @@ export function HeroSearch() {
   const [tab, setTab] = useState<(typeof TABS)[number]>("All");
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
   const models = useMemo(() => (make ? MAKE_MODELS[make] ?? [] : []), [make]);
 
@@ -29,6 +30,7 @@ export function HeroSearch() {
     const search: Record<string, string> = {};
     if (make) search.make = make;
     if (model) search.model = model;
+    if (year) search.year = year;
     if (price) {
       const [min, max] = price.split("-");
       search.minPrice = min;
