@@ -10,8 +10,9 @@ import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { formatPrice } from "@/lib/format";
 import { TestimonialsManager } from "@/components/admin/TestimonialsManager";
 import { SoldGalleryManager } from "@/components/admin/SoldGalleryManager";
+import { InquiriesManager } from "@/components/admin/InquiriesManager";
 
-type Tab = "cars" | "gallery" | "testimonials";
+type Tab = "cars" | "gallery" | "testimonials" | "inquiries";
 
 export const Route = createFileRoute("/admin/dashboard")({
   head: () => ({
@@ -123,6 +124,7 @@ function AdminDashboard() {
             { id: "cars", label: "Cars" },
             { id: "gallery", label: "Sold Gallery" },
             { id: "testimonials", label: "Testimonials" },
+            { id: "inquiries", label: "Inquiries" },
           ] as const).map((t) => (
             <button
               key={t.id}
@@ -240,6 +242,7 @@ function AdminDashboard() {
 
           {tab === "gallery" && <SoldGalleryManager />}
           {tab === "testimonials" && <TestimonialsManager />}
+          {tab === "inquiries" && <InquiriesManager />}
         </div>
       </div>
 
