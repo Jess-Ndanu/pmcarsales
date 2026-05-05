@@ -24,10 +24,15 @@ function AdminDashboard() {
   const { user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [cars, setCars] = useState<Tables<"cars">[]>([]);
+  const [totalCars, setTotalCars] = useState(0);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Tables<"cars"> | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [tab, setTab] = useState<Tab>("cars");
+  const [page, setPage] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const PAGE_SIZE = 50;
 
   useEffect(() => {
     if (!authLoading && (!user || !isAdmin)) {
@@ -35,16 +40,31 @@ function AdminDashboard() {
     }
   }, [user, isAdmin, authLoading, navigate]);
 
+  // debounce search
+  useEffect(() => {
+    const t = setTimeout(() => { setSearchTerm(searchInput.trim()); setPage(1); }, 300);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
   const refresh = async () => {
     setLoading(true);
-    const { data } = await supabase.from("cars").select("*").order("created_at", { ascending: false });
+    const from = (page - 1) * PAGE_SIZE;
+    let q = supabase.from("cars").select("*", { count: "exact" });
+    if (searchTerm) {
+      const term = `%${searchTerm}%`;
+      q = q.or(`make.ilike.${term},model.ilike.${term}`);
+    }
+    const { data, count } = await q
+      .order("created_at", { ascending: false })
+      .range(from, from + PAGE_SIZE - 1);
     setCars(data ?? []);
+    setTotalCars(count ?? 0);
     setLoading(false);
   };
 
   useEffect(() => {
     if (isAdmin) refresh();
-  }, [isAdmin]);
+  }, [isAdmin, page, searchTerm]);
 
   const remove = async (car: Tables<"cars">) => {
     if (!confirm(`Delete ${car.year} ${car.make} ${car.model}?`)) return;
