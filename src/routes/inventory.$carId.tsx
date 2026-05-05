@@ -158,26 +158,11 @@ function CarDetailPage() {
               </dl>
             </div>
 
-            {(car as any).safety_features && (car as any).safety_features.length > 0 && (
-              <div>
-                <h2 className="font-display text-xl font-bold mb-3">Safety Features</h2>
-                <div className="rounded-2xl bg-primary/5 border border-primary/15 p-5">
-                  <div className="flex flex-wrap gap-2">
-                    {((car as any).safety_features as string[]).map((f) => (
-                      <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-3 py-1.5 text-sm font-medium text-foreground shadow-sm">
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
             <WhatsAppCTA carName={`${car.year} ${car.make} ${car.model}`} />
           </aside>
         </div>
 
-        {/* Features & Description — full width below */}
+        {/* Features, Safety & Description — full width below */}
         <div className="mt-12 max-w-4xl">
           {(car as any).features && (car as any).features.length > 0 && (
             <div className="mt-8">
@@ -185,6 +170,21 @@ function CarDetailPage() {
               <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
                 <div className="flex flex-wrap gap-3">
                   {((car as any).features as string[]).map((f) => (
+                    <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {(car as any).safety_features && (car as any).safety_features.length > 0 && (
+            <div className="mt-8">
+              <h2 className="font-display text-2xl font-bold mb-4">Safety Features</h2>
+              <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
+                <div className="flex flex-wrap gap-3">
+                  {((car as any).safety_features as string[]).map((f) => (
                     <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
                       {f}
                     </span>
