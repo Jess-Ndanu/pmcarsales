@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Mail, MapPin, Phone, MessageCircle, Youtube, Music2 } from "lucide-react";
+import { Facebook, Mail, MapPin, Phone, MessageCircle, Music2 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import {
   DEALER_ADDRESS,
@@ -11,10 +11,8 @@ import {
 } from "@/lib/format";
 
 const socials = [
-  { label: "Facebook", href: "https://facebook.com", Icon: Facebook },
-  { label: "Instagram", href: "https://instagram.com", Icon: Instagram },
-  { label: "TikTok", href: "https://tiktok.com", Icon: Music2 },
-  { label: "YouTube", href: "https://youtube.com", Icon: Youtube },
+  { label: "Facebook", href: "https://www.facebook.com/share/18VCEU7hDC/", Icon: Facebook },
+  { label: "TikTok", href: "https://www.tiktok.com/@piusmulatya?_r=1&_t=ZS-9689egtzLnQ", Icon: Music2 },
 ];
 
 export function Footer() {
