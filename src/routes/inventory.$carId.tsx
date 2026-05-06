@@ -208,7 +208,7 @@ function CarDetailPage() {
 }
 
 function WhatsAppCTA({ carName }: { carName: string }) {
-  const href = `https://wa.me/254721861621?text=${encodeURIComponent(`Hi, I'm interested in the ${carName}. Is it still available?`)}`;
+  const href = `https://wa.me/254712604775?text=${encodeURIComponent(`Hi, I'm interested in the ${carName}. Is it still available?`)}`;
   return (
     <div className="rounded-xl border border-border bg-card p-6 shadow-card space-y-4">
       <div>
