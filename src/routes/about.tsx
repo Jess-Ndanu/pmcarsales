@@ -6,9 +6,15 @@ import { DEALER_ADDRESS, DEALER_NAME } from "@/lib/format";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: `About — ${DEALER_NAME}` },
-      { name: "description", content: `Learn about ${DEALER_NAME}, our story, mission, and what makes our buying experience different.` },
+      { title: `About PM Car Sales — Trusted Car Dealer in Mombasa` },
+      { name: "description", content: `Learn about PM Car Sales in Mombasa, Kenya. Our story, mission, and why drivers across Kenya trust us to find their next car.` },
+      { property: "og:title", content: "About PM Car Sales — Trusted Car Dealer in Mombasa" },
+      { property: "og:description", content: "Our story, mission, and why drivers across Kenya trust PM Car Sales." },
+      { property: "og:url", content: "https://pmcarsales.lovable.app/about" },
+      { name: "twitter:title", content: "About PM Car Sales — Trusted Car Dealer in Mombasa" },
+      { name: "twitter:description", content: "Our story, mission, and why drivers across Kenya trust PM Car Sales." },
     ],
+    links: [{ rel: "canonical", href: "https://pmcarsales.lovable.app/about" }],
   }),
   component: AboutPage,
 });
