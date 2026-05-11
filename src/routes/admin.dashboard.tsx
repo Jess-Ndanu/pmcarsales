@@ -262,7 +262,7 @@ const carSchema = z.object({
   model: z.string().trim().min(1).max(60),
   year: z.number().int().min(1900).max(2100),
   mileage: z.number().int().min(0).max(2_000_000),
-  price: z.number().min(0).max(10_000_000),
+  price: z.number().min(0).max(1_000_000_000),
   body_type: z.string().trim().max(40).optional().or(z.literal("")),
   fuel_type: z.string().trim().max(40).optional().or(z.literal("")),
   transmission: z.string().trim().max(40).optional().or(z.literal("")),
