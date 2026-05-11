@@ -106,8 +106,8 @@ function CarDetailPage() {
     throw notFound();
   }
 
-  const images = car.images?.length
-    ? car.images
+  const images: string[] = car.images?.length
+    ? (car.images as string[])
     : ["https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600"];
 
   const next = () => setIdx((i) => (i + 1) % images.length);
