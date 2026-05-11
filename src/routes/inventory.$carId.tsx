@@ -99,33 +99,8 @@ export const Route = createFileRoute("/inventory/$carId")({
 });
 
 function CarDetailPage() {
-  const { carId } = Route.useParams();
-  const [car, setCar] = useState<Tables<"cars"> | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { car } = Route.useLoaderData();
   const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    setLoading(true);
-    supabase
-      .from("cars")
-      .select("*")
-      .eq("id", carId)
-      .maybeSingle()
-      .then(({ data }) => {
-        setCar(data);
-        setLoading(false);
-      });
-  }, [carId]);
-
-  if (loading) {
-    return (
-      <SiteLayout>
-        <div className="mx-auto max-w-7xl px-4 md:px-8 py-10">
-          <div className="aspect-[16/9] rounded-xl bg-muted animate-pulse" />
-        </div>
-      </SiteLayout>
-    );
-  }
 
   if (!car) {
     throw notFound();
