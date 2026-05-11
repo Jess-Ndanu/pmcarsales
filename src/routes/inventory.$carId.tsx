@@ -1,12 +1,70 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
 import { formatMiles, formatPrice } from "@/lib/format";
 
 export const Route = createFileRoute("/inventory/$carId")({
+  loader: async ({ params }) => {
+    const { data, error } = await supabase
+      .from("cars")
+      .select("*")
+      .eq("id", params.carId)
+      .maybeSingle();
+    if (error) throw error;
+    if (!data) throw notFound();
+    return { car: data };
+  },
+  head: ({ loaderData }) => {
+    const car = loaderData?.car;
+    if (!car) return {};
+    const title = `${car.year} ${car.make} ${car.model} for sale in Mombasa — PM Car Sales`;
+    const description = `${car.year} ${car.make} ${car.model} • ${formatMiles(car.mileage)} • ${formatPrice(Number(car.price))}. ${car.description?.slice(0, 120) ?? "Available now at PM Car Sales Mombasa."}`;
+    const image = car.images?.[0] ?? "https://pmcarsales.lovable.app/favicon.ico";
+    const url = `https://pmcarsales.lovable.app/inventory/${car.id}`;
+    const vehicleJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Vehicle",
+      name: `${car.year} ${car.make} ${car.model}`,
+      brand: { "@type": "Brand", name: car.make },
+      model: car.model,
+      vehicleModelDate: String(car.year),
+      mileageFromOdometer: { "@type": "QuantitativeValue", value: car.mileage, unitCode: "KMT" },
+      bodyType: car.body_type ?? undefined,
+      fuelType: car.fuel_type ?? undefined,
+      vehicleTransmission: car.transmission ?? undefined,
+      color: car.color ?? undefined,
+      vehicleEngine: car.engine_size ? { "@type": "EngineSpecification", engineDisplacement: car.engine_size } : undefined,
+      image: car.images ?? [],
+      description: car.description ?? undefined,
+      url,
+      offers: {
+        "@type": "Offer",
+        price: Number(car.price),
+        priceCurrency: "KES",
+        availability: car.sold ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+        url,
+        seller: { "@type": "AutoDealer", name: "PM Car Sales", telephone: "+254712604775" },
+      },
+    };
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: url },
+        { property: "og:image", content: image },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: image },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify(vehicleJsonLd) }],
+    };
+  },
   component: CarDetailPage,
   errorComponent: ({ error, reset }) => {
     const router = useRouter();
