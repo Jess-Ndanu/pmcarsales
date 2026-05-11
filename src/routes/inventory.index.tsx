@@ -34,6 +34,7 @@ export const Route = createFileRoute("/inventory/")({
       { name: "twitter:title", content: "Used Cars for Sale in Mombasa — PM Car Sales" },
       { name: "twitter:description", content: "Browse our full inventory of quality used cars in Mombasa, Kenya." },
     ],
+    links: [{ rel: "canonical", href: "https://pmcarsales.lovable.app/inventory" }],
   }),
   component: InventoryPage,
 });
