@@ -3,6 +3,34 @@ import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 
+const SITE_URL = "https://pmcarsales.lovable.app";
+const OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e5dce809-4997-4384-93d0-636322713ca9/id-preview-86132273--460eb687-172f-486f-a2b6-7a2e3b824127.lovable.app-1777967759146.png";
+
+const autoDealerJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  name: "PM Car Sales",
+  description: "Quality used cars dealer in Mombasa, Kenya. Hand-picked vehicles with transparent pricing.",
+  url: SITE_URL,
+  telephone: "+254712604775",
+  email: "pmcarsalesmombasa@gmail.com",
+  image: OG_IMAGE,
+  priceRange: "KES",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Mombasa",
+    addressCountry: "KE",
+  },
+  areaServed: [
+    { "@type": "City", name: "Mombasa" },
+    { "@type": "Country", name: "Kenya" },
+  ],
+  sameAs: [
+    "https://www.facebook.com/share/18VCEU7hDC/",
+    "https://www.tiktok.com/@piusmulatya",
+  ],
+};
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -30,18 +58,33 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Pius Mulatya" },
-      { name: "description", content: "Hand-picked premium pre-owned cars. Browse our inventory of luxury sedans, SUVs, sports cars, and EVs with transparent pricing." },
-      { property: "og:title", content: "Pius Mulatya" },
-      { property: "og:description", content: "Hand-picked premium pre-owned cars. Browse our inventory of luxury sedans, SUVs, sports cars, and EVs with transparent pricing." },
+      { title: "PM Car Sales — Quality Used Cars in Mombasa, Kenya" },
+      { name: "description", content: "PM Car Sales: hand-picked quality used cars in Mombasa, Kenya. Browse our inventory, check prices in KES, and chat with us on WhatsApp." },
+      { name: "keywords", content: "used cars Mombasa, car dealer Mombasa, cars for sale Kenya, buy car Mombasa, PM Car Sales, second hand cars Kenya" },
+      { name: "author", content: "PM Car Sales" },
+      { name: "robots", content: "index, follow" },
+      { property: "og:site_name", content: "PM Car Sales" },
+      { property: "og:title", content: "PM Car Sales — Quality Used Cars in Mombasa, Kenya" },
+      { property: "og:description", content: "Hand-picked quality used cars in Mombasa. Transparent pricing in KES. Chat on WhatsApp." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:locale", content: "en_KE" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Pius Mulatya" },
-      { name: "twitter:description", content: "Hand-picked premium pre-owned cars. Browse our inventory of luxury sedans, SUVs, sports cars, and EVs with transparent pricing." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e5dce809-4997-4384-93d0-636322713ca9/id-preview-86132273--460eb687-172f-486f-a2b6-7a2e3b824127.lovable.app-1777967759146.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e5dce809-4997-4384-93d0-636322713ca9/id-preview-86132273--460eb687-172f-486f-a2b6-7a2e3b824127.lovable.app-1777967759146.png" },
+      { name: "twitter:title", content: "PM Car Sales — Quality Used Cars in Mombasa, Kenya" },
+      { name: "twitter:description", content: "Hand-picked quality used cars in Mombasa. Transparent pricing in KES." },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: SITE_URL },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(autoDealerJsonLd),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
