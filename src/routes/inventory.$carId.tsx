@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Check, Wallet, HandCoins, Landmark } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMiles, formatPrice } from "@/lib/format";
@@ -114,16 +114,16 @@ function CarDetailPage() {
   const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
 
   const specs: { label: string; value: string }[] = [
+    { label: "Year", value: String(car.year) },
     { label: "Make", value: car.make },
     { label: "Model", value: car.model },
-    { label: "Condition", value: car.condition ?? "—" },
-    { label: "Year", value: String(car.year) },
+    { label: "Engine", value: car.engine_size ?? "—" },
+    { label: "Transmission", value: car.transmission ?? "—" },
     { label: "Mileage", value: formatMiles(car.mileage) },
     { label: "Fuel", value: car.fuel_type ?? "—" },
-    { label: "Transmission", value: car.transmission ?? "—" },
-    { label: "Body", value: car.body_type ?? "—" },
+    { label: "Body Type", value: car.body_type ?? "—" },
     { label: "Color", value: car.color ?? "—" },
-    { label: "Engine Size", value: car.engine_size ?? "—" },
+    { label: "Condition", value: car.condition ?? "—" },
   ];
 
   return (
@@ -180,18 +180,34 @@ function CarDetailPage() {
               <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-foreground">{formatPrice(Number(car.price))}</p>
             </div>
 
-            <div className="rounded-2xl bg-muted/60 border border-border p-5 md:p-6">
-              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                {specs.map(({ label, value }) => (
-                  <div key={label} className="grid grid-cols-[110px_1fr] items-start gap-2">
-                    <dt className="text-sm font-bold text-foreground">{label}:</dt>
-                    <dd className="text-sm text-foreground/80">{value}</dd>
-                  </div>
-                ))}
-              </dl>
+            {/* Payment options */}
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground">
+                <Wallet className="h-3.5 w-3.5" /> Cash
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground">
+                <HandCoins className="h-3.5 w-3.5" /> Hire Purchase
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground">
+                <Landmark className="h-3.5 w-3.5" /> Bank Finance
+              </span>
             </div>
 
-            <WhatsAppCTA carName={`${car.year} ${car.make} ${car.model}`} />
+            {/* Bulleted specifications */}
+            <div className="rounded-2xl bg-muted/60 border border-border p-5 md:p-6">
+              <h2 className="font-display text-sm font-bold uppercase tracking-wider text-foreground mb-3">Specifications</h2>
+              <ul className="space-y-2">
+                {specs.map(({ label, value }) => (
+                  <li key={label} className="flex items-start gap-2 text-sm">
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                    <span className="font-semibold text-foreground">{label}:</span>
+                    <span className="text-foreground/80">{value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <WhatsAppCTA car={car} />
           </aside>
         </div>
 
@@ -204,30 +220,36 @@ function CarDetailPage() {
             </div>
           )}
 
-          {(car as any).features && (car as any).features.length > 0 && (
+          {car.features && car.features.length > 0 && (
             <div className="mt-8">
-              <h2 className="font-display text-2xl font-bold mb-4">Features</h2>
+              <h2 className="font-display text-2xl font-bold mb-4">Premium Features</h2>
               <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
-                <div className="flex flex-wrap gap-3">
-                  {((car as any).features as string[]).map((f) => (
-                    <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
-                      {f}
-                    </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {car.features.map((f: string) => (
+                    <div key={f} className="flex items-center gap-2 text-sm font-medium text-foreground">
+                      <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      </span>
+                      <span>{f}</span>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
           )}
 
-          {(car as any).safety_features && (car as any).safety_features.length > 0 && (
+          {car.safety_features && car.safety_features.length > 0 && (
             <div className="mt-8">
               <h2 className="font-display text-2xl font-bold mb-4">Safety Features</h2>
               <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
-                <div className="flex flex-wrap gap-3">
-                  {((car as any).safety_features as string[]).map((f) => (
-                    <span key={f} className="inline-flex items-center rounded-md bg-card border border-border px-4 py-2 text-sm font-medium text-foreground shadow-sm">
-                      {f}
-                    </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {car.safety_features.map((f: string) => (
+                    <div key={f} className="flex items-center gap-2 text-sm font-medium text-foreground">
+                      <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      </span>
+                      <span>{f}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -240,8 +262,8 @@ function CarDetailPage() {
   );
 }
 
-function WhatsAppCTA({ carName }: { carName: string }) {
-  const href = `https://wa.me/254712604775?text=${encodeURIComponent(`Hi, I'm interested in the ${carName}. Is it still available?`)}`;
+function WhatsAppCTA({ car }: { car: { year: number; make: string; model: string } }) {
+  const href = `https://wa.me/254712604775?text=${encodeURIComponent(`Hi PM Car Sales, I am interested in the ${car.year} ${car.make} ${car.model}. Is it available for viewing?`)}`;
   return (
     <div className="rounded-xl border border-border bg-card p-6 shadow-card space-y-4">
       <div>
