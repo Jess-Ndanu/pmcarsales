@@ -304,3 +304,28 @@ function FilterSidebar(p: FilterProps) {
     </aside>
   );
 }
+
+function InventorySearchBar({ initial, onSubmit }: { initial: string; onSubmit: (q: string) => void }) {
+  const [value, setValue] = useState(initial);
+  useEffect(() => { setValue(initial); }, [initial]);
+  return (
+    <form
+      onSubmit={(e) => { e.preventDefault(); onSubmit(value.trim()); }}
+      className="mt-4 flex items-stretch h-12 max-w-2xl rounded-full bg-background border border-border shadow-sm overflow-hidden"
+    >
+      <div className="flex items-center pl-4 text-muted-foreground">
+        <Search className="h-4 w-4" />
+      </div>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Search by make or model — e.g. Toyota Premio"
+        className="flex-1 bg-transparent px-3 text-sm focus:outline-none"
+        maxLength={80}
+      />
+      <button type="submit" className="px-5 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90">
+        Search
+      </button>
+    </form>
+  );
+}
