@@ -3,27 +3,27 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const FAQS = [
   {
     q: "Are your vehicles inspected before sale?",
-    a: "Yes. Every car passes a 150-point mechanical and cosmetic inspection before it is listed. We disclose any known issues upfront.",
+    a: "Yes, absolutely. Every vehicle in our yard undergoes a rigorous multi-point inspection covering the engine, transmission, suspension, electronics, and braking systems. For imported units, we also verify official QISJ/JEVIC inspection certificates to guarantee genuine mileage and structural integrity.",
   },
   {
     q: "Do you offer financing?",
-    a: "We work with several local banks and SACCOs to help arrange financing. Reach out via the contact page and we'll connect you with the right partner.",
+    a: "Yes, we offer highly flexible financing options. You can purchase via Hire Purchase (with a standard deposit of 40% to 50% and the balance cleared in 12–24 months), or through major local banks and asset-financing SACCOs. Our team handles the documentation to get you approved quickly.",
   },
   {
     q: "Can I trade in my current car?",
-    a: "Absolutely. Bring your vehicle in for a free valuation and we'll offer a fair trade-in value against any car in our inventory.",
+    a: "Yes! Bring your vehicle to our showroom for a free, transparent valuation. Once we evaluate its condition and market value, we will deduct that amount from the price of your upgraded car. You simply pay the difference or finance it.",
   },
   {
     q: "Is there a warranty?",
-    a: "Every vehicle includes a 12-month limited powertrain warranty. Extended coverage options are available at checkout.",
+    a: "We stand by our quality. All our certified clean dealership units come with a standard dealership warranty covering the engine and gearbox. Specific terms vary based on whether the vehicle is a fresh import or a locally used unit.",
   },
   {
     q: "Do you handle logbook transfer?",
-    a: "Yes. We manage the full NTSA transfer process on your behalf so you drive away worry-free.",
+    a: "Yes, we take care of the entire legal process end-to-end. For cash purchases, we initiate the transfer via the NTSA TIMS / eCitizen portal immediately so the logbook is legally in your name before you leave the yard. For financed vehicles, we coordinate directly with the bank/SACCO.",
   },
   {
     q: "Can I source a specific car you don't have in stock?",
-    a: "Yes. Tell us the make, model, year and budget — our buying team sources vehicles to order, both locally and imported.",
+    a: "Definitely. If a specific model, color, or trim isn't currently in our inventory, our specialized import team can source it directly from auctions in Japan, the UK, or Thailand. We manage shipping, customs clearance, and port delivery, saving you time and money.",
   },
 ];
 
