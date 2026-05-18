@@ -125,6 +125,7 @@ function AdminDashboard() {
             { id: "gallery", label: "Sold Gallery" },
             { id: "testimonials", label: "Testimonials" },
             { id: "inquiries", label: "Inquiries" },
+            { id: "settings", label: "Settings" },
           ] as const).map((t) => (
             <button
               key={t.id}
