@@ -97,6 +97,10 @@ function InventoryPage() {
     let cancelled = false;
     setLoading(true);
     let q = supabase.from("cars").select("*", { count: "exact" });
+    if (search.q) {
+      const term = `%${search.q}%`;
+      q = q.or(`make.ilike.${term},model.ilike.${term}`);
+    }
     if (search.make) q = q.ilike("make", search.make);
     if (search.model) q = q.ilike("model", `%${search.model}%`);
     if (search.year) q = q.eq("year", Number(search.year));
