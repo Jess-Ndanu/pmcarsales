@@ -86,6 +86,31 @@ function ContactPage() {
               </a>
             ))}
           </div>
+
+          <div className="rounded-xl overflow-hidden border border-border shadow-card">
+            <div className="px-5 py-4 border-b border-border bg-surface">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary">Our location</p>
+              <h2 className="mt-1 font-display text-lg font-semibold">Ivory Building, Moi Avenue, Mombasa</h2>
+            </div>
+            <iframe
+              title="PM Car Sales — Ivory Building, Moi Avenue, Mombasa"
+              src="https://www.google.com/maps?q=Ivory+Building+Moi+Avenue+Mombasa&output=embed"
+              width="100%"
+              height="360"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Ivory+Building+Moi+Avenue+Mombasa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-5 py-3 text-sm font-semibold text-primary hover:underline border-t border-border"
+            >
+              Open in Google Maps →
+            </a>
+          </div>
         </div>
 
         <form onSubmit={onSubmit} className="order-1 lg:order-2 rounded-xl border border-border bg-card p-6 shadow-card space-y-3 lg:sticky lg:top-24 lg:self-start">
