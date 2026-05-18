@@ -64,15 +64,17 @@ export function CarCard({ car }: { car: Car }) {
           </div>
         )}
 
-        <a
-          href={waHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.open(waHref, "_blank", "noopener,noreferrer");
+          }}
           className="mt-4 inline-flex h-10 items-center justify-center gap-2 rounded-md bg-[#25D366] px-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#1faa53] transition-colors"
         >
           Inquire on WhatsApp
-        </a>
+        </button>
       </div>
     </Link>
   );
