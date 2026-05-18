@@ -12,7 +12,7 @@ import { TestimonialsManager } from "@/components/admin/TestimonialsManager";
 import { SoldGalleryManager } from "@/components/admin/SoldGalleryManager";
 import { InquiriesManager } from "@/components/admin/InquiriesManager";
 
-type Tab = "cars" | "gallery" | "testimonials" | "inquiries";
+type Tab = "cars" | "gallery" | "testimonials" | "inquiries" | "settings";
 
 export const Route = createFileRoute("/admin/dashboard")({
   head: () => ({
