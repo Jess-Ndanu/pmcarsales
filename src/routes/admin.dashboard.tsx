@@ -566,3 +566,58 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
     </div>
   );
 }
+
+function AdminSettings({ currentEmail }: { currentEmail: string }) {
+  const [email, setEmail] = useState(currentEmail);
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [savingEmail, setSavingEmail] = useState(false);
+  const [savingPwd, setSavingPwd] = useState(false);
+
+  const fieldCls = "h-11 w-full rounded-md border border-border bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary";
+
+  const updateEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsed = z.string().trim().email().max(255).safeParse(email);
+    if (!parsed.success) { toast.error("Enter a valid email"); return; }
+    setSavingEmail(true);
+    const { error } = await supabase.auth.updateUser({ email: parsed.data });
+    setSavingEmail(false);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Check your new email to confirm the change.");
+  };
+
+  const updatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password.length < 6) { toast.error("Password must be at least 6 characters"); return; }
+    if (password !== confirm) { toast.error("Passwords do not match"); return; }
+    setSavingPwd(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    setSavingPwd(false);
+    if (error) { toast.error(error.message); return; }
+    toast.success("Password updated.");
+    setPassword(""); setConfirm("");
+  };
+
+  return (
+    <div className="max-w-xl space-y-8">
+      <form onSubmit={updateEmail} className="rounded-xl border border-border bg-card p-6 space-y-3">
+        <h2 className="font-display text-lg font-semibold">Change admin email</h2>
+        <p className="text-xs text-muted-foreground">A confirmation link will be sent to the new email.</p>
+        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className={fieldCls} maxLength={255} required />
+        <button type="submit" disabled={savingEmail} className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60">
+          {savingEmail ? "Updating…" : "Update email"}
+        </button>
+      </form>
+
+      <form onSubmit={updatePassword} className="rounded-xl border border-border bg-card p-6 space-y-3">
+        <h2 className="font-display text-lg font-semibold">Change admin password</h2>
+        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="New password" className={fieldCls} maxLength={100} required />
+        <input value={confirm} onChange={(e) => setConfirm(e.target.value)} type="password" placeholder="Confirm new password" className={fieldCls} maxLength={100} required />
+        <button type="submit" disabled={savingPwd} className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-60">
+          {savingPwd ? "Updating…" : "Update password"}
+        </button>
+      </form>
+    </div>
+  );
+}
