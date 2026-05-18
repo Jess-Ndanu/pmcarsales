@@ -150,6 +150,7 @@ function InventoryPage() {
           <p className="mt-2 text-sm text-muted-foreground">
             {loading ? "Loading…" : `${count} ${count === 1 ? "vehicle" : "vehicles"} available`}
           </p>
+          <InventorySearchBar initial={search.q ?? ""} onSubmit={(q) => navigate({ search: { ...search, q: q || undefined, page: undefined } })} />
         </div>
       </section>
 
