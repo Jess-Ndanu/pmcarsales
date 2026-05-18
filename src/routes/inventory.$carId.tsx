@@ -262,8 +262,8 @@ function CarDetailPage() {
   );
 }
 
-function WhatsAppCTA({ carName }: { carName: string }) {
-  const href = `https://wa.me/254712604775?text=${encodeURIComponent(`Hi, I'm interested in the ${carName}. Is it still available?`)}`;
+function WhatsAppCTA({ car }: { car: { year: number; make: string; model: string } }) {
+  const href = `https://wa.me/254712604775?text=${encodeURIComponent(`Hi PM Car Sales, I am interested in the ${car.year} ${car.make} ${car.model}. Is it available for viewing?`)}`;
   return (
     <div className="rounded-xl border border-border bg-card p-6 shadow-card space-y-4">
       <div>
