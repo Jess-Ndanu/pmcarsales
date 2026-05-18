@@ -244,6 +244,7 @@ function AdminDashboard() {
           {tab === "gallery" && <SoldGalleryManager />}
           {tab === "testimonials" && <TestimonialsManager />}
           {tab === "inquiries" && <InquiriesManager />}
+          {tab === "settings" && <AdminSettings currentEmail={user?.email ?? ""} />}
         </div>
       </div>
 
