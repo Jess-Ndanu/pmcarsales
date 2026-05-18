@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X, Search } from "lucide-react";
 import { z } from "zod";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CarCard } from "@/components/CarCard";
@@ -9,6 +9,7 @@ import type { Tables } from "@/integrations/supabase/types";
 import { cn } from "@/lib/utils";
 
 const searchSchema = z.object({
+  q: z.string().optional(),
   make: z.string().optional(),
   model: z.string().optional(),
   year: z.string().optional(),
@@ -96,6 +97,10 @@ function InventoryPage() {
     let cancelled = false;
     setLoading(true);
     let q = supabase.from("cars").select("*", { count: "exact" });
+    if (search.q) {
+      const term = `%${search.q}%`;
+      q = q.or(`make.ilike.${term},model.ilike.${term}`);
+    }
     if (search.make) q = q.ilike("make", search.make);
     if (search.model) q = q.ilike("model", `%${search.model}%`);
     if (search.year) q = q.eq("year", Number(search.year));
@@ -145,6 +150,7 @@ function InventoryPage() {
           <p className="mt-2 text-sm text-muted-foreground">
             {loading ? "Loading…" : `${count} ${count === 1 ? "vehicle" : "vehicles"} available`}
           </p>
+          <InventorySearchBar initial={search.q ?? ""} onSubmit={(q) => navigate({ search: { ...search, q: q || undefined, page: undefined } })} />
         </div>
       </section>
 
@@ -296,5 +302,30 @@ function FilterSidebar(p: FilterProps) {
         </button>
       </div>
     </aside>
+  );
+}
+
+function InventorySearchBar({ initial, onSubmit }: { initial: string; onSubmit: (q: string) => void }) {
+  const [value, setValue] = useState(initial);
+  useEffect(() => { setValue(initial); }, [initial]);
+  return (
+    <form
+      onSubmit={(e) => { e.preventDefault(); onSubmit(value.trim()); }}
+      className="mt-4 flex items-stretch h-12 max-w-2xl rounded-full bg-background border border-border shadow-sm overflow-hidden"
+    >
+      <div className="flex items-center pl-4 text-muted-foreground">
+        <Search className="h-4 w-4" />
+      </div>
+      <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Search by make or model — e.g. Toyota Premio"
+        className="flex-1 bg-transparent px-3 text-sm focus:outline-none"
+        maxLength={80}
+      />
+      <button type="submit" className="px-5 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90">
+        Search
+      </button>
+    </form>
   );
 }
