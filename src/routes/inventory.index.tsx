@@ -9,6 +9,7 @@ import type { Tables } from "@/integrations/supabase/types";
 import { cn } from "@/lib/utils";
 
 const searchSchema = z.object({
+  q: z.string().optional(),
   make: z.string().optional(),
   model: z.string().optional(),
   year: z.string().optional(),
