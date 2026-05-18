@@ -462,6 +462,7 @@ function CarFormDialog({ car, onClose, onSaved }: { car: Tables<"cars"> | null; 
                 <option value="">Select…</option>
                 <option value="Imported and available in Mombasa">Imported and available in Mombasa</option>
                 <option value="Traded in">Traded in</option>
+                <option value="On the way">On the way</option>
               </select>
             </div>
           </div>
