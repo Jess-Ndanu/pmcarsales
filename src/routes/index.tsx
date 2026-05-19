@@ -9,16 +9,32 @@ import { CarCard } from "@/components/CarCard";
 
 import { Testimonials } from "@/components/Testimonials";
 import { SoldGallery } from "@/components/SoldGallery";
-import { Faq } from "@/components/Faq";
+import { Faq, FAQS } from "@/components/Faq";
 import { DEALER_NAME, DEALER_WHATSAPP } from "@/lib/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: `${DEALER_NAME} — Find Your Perfect Car in Mombasa` },
       { name: "description", content: "Browse hand-picked quality vehicles. Search by make, model, and price. Drive your dream." },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(faqJsonLd),
+      },
     ],
   }),
   component: HomePage,

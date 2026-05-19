@@ -8,19 +8,40 @@ const OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e5dce809-4
 
 const autoDealerJsonLd = {
   "@context": "https://schema.org",
-  "@type": "AutoDealer",
+  "@type": ["AutoDealer", "LocalBusiness"],
+  "@id": `${SITE_URL}/#business`,
   name: "PM Car Sales",
   description: "Quality used cars dealer in Mombasa, Kenya. Hand-picked vehicles with transparent pricing.",
   url: SITE_URL,
   telephone: "+254712604775",
   email: "pmcarsalesmombasa@gmail.com",
   image: OG_IMAGE,
+  logo: OG_IMAGE,
   priceRange: "KES",
+  currenciesAccepted: "KES",
+  paymentAccepted: "Cash, Bank Transfer, Hire Purchase, Bank Financing",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Ivory Building, Moi Avenue",
     addressLocality: "Mombasa",
+    addressRegion: "Mombasa County",
     addressCountry: "KE",
   },
+  // TODO: update opening hours to match actual business hours
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "08:00",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Sunday",
+      opens: "10:00",
+      closes: "16:00",
+    },
+  ],
   areaServed: [
     { "@type": "City", name: "Mombasa" },
     { "@type": "Country", name: "Kenya" },
