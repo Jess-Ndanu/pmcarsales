@@ -21,7 +21,7 @@ export function CarCard({ car }: { car: Car }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={cover}
-          alt={`${car.year} ${car.make} ${car.model}`}
+          alt={`${car.year} ${car.make} ${car.model} for sale in Mombasa Kenya — PM Car Sales`}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
