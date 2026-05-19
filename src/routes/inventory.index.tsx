@@ -28,7 +28,7 @@ export const Route = createFileRoute("/inventory/")({
   head: () => ({
     meta: [
       { title: "Used Cars for Sale in Mombasa — PM Car Sales Inventory" },
-      { name: "description", content: "Browse used cars for sale at PM Car Sales Mombasa. Filter by make, model, year, mileage, body type and price in KES." },
+      { name: "description", content: "Browse our full inventory of quality used cars in Mombasa. Filter by make, model, year and price in KES. New stock added regularly. Visit us at Ivory Building, Moi Avenue." },
       { property: "og:title", content: "Used Cars for Sale in Mombasa — PM Car Sales" },
       { property: "og:description", content: "Browse our full inventory of quality used cars in Mombasa, Kenya." },
       { property: "og:url", content: "https://pmcarsales.lovable.app/inventory" },

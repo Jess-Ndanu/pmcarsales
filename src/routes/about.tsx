@@ -7,7 +7,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: `About PM Car Sales — Trusted Car Dealer in Mombasa` },
-      { name: "description", content: `Learn about PM Car Sales in Mombasa, Kenya. Our story, mission, and why drivers across Kenya trust us to find their next car.` },
+      { name: "description", content: "PM Car Sales has been serving Mombasa drivers for 15+ years. Over 4,200 happy owners, 150-point inspections, and a 4.9★ rating. Honest pricing, no pressure." },
       { property: "og:title", content: "About PM Car Sales — Trusted Car Dealer in Mombasa" },
       { property: "og:description", content: "Our story, mission, and why drivers across Kenya trust PM Car Sales." },
       { property: "og:url", content: "https://pmcarsales.lovable.app/about" },

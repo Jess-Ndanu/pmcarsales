@@ -11,7 +11,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: `Contact PM Car Sales — Mombasa Car Dealer | 0712 604 775` },
-      { name: "description", content: `Contact PM Car Sales in Mombasa. Call 0712 604 775, WhatsApp us, or email pmcarsalesmombasa@gmail.com. We respond fast.` },
+      { name: "description", content: "Contact PM Car Sales in Mombasa. Call or WhatsApp 0712 604 775, email pmcarsalesmombasa@gmail.com, or visit us at Ivory Building, Moi Avenue, Mombasa." },
       { property: "og:title", content: "Contact PM Car Sales — Mombasa Car Dealer" },
       { property: "og:description", content: "Call 0712 604 775, WhatsApp us, or send a message. PM Car Sales, Mombasa." },
       { property: "og:url", content: "https://pmcarsales.lovable.app/contact" },
