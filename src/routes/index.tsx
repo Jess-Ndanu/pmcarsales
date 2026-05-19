@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: `${DEALER_NAME} — Find Your Perfect Car in Mombasa` },
-      { name: "description", content: "Browse hand-picked quality vehicles. Search by make, model, and price. Drive your dream." },
+      { name: "description", content: "PM Car Sales — Browse hand-picked used cars for sale in Mombasa, Kenya. Toyota, Subaru, BMW & more. Transparent KES pricing, hire purchase available. Call 0712 604 775." },
     ],
     scripts: [
       {
