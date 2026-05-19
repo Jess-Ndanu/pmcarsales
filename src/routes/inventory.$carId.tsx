@@ -139,7 +139,7 @@ function CarDetailPage() {
             <div className="relative overflow-hidden rounded-2xl bg-muted aspect-[16/10]">
               <img
                 src={images[idx]}
-                alt={`${car.year} ${car.make} ${car.model}`}
+                alt={`${car.year} ${car.make} ${car.model} for sale in Mombasa Kenya — PM Car Sales`}
                 className="h-full w-full object-cover transition-opacity duration-500"
               />
               {images.length > 1 && (
@@ -165,7 +165,7 @@ function CarDetailPage() {
                     onClick={() => setIdx(i)}
                     className={`overflow-hidden rounded-md aspect-[4/3] border-2 transition ${i === idx ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"}`}
                   >
-                    <img src={src} alt="" className="h-full w-full object-cover" />
+                    <img src={src} alt={`${car.year} ${car.make} ${car.model} — photo ${i + 1}`} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>

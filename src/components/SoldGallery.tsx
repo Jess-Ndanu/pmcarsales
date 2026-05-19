@@ -40,7 +40,7 @@ export function SoldGallery() {
           >
             <img
               src={g.image_url}
-              alt={g.caption ?? "Sold vehicle"}
+              alt={g.caption ?? "Recently sold vehicle at PM Car Sales, Mombasa Kenya"}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />

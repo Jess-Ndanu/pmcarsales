@@ -69,7 +69,7 @@ function HomePage() {
       <section className="relative -mt-16 min-h-[760px] flex items-center overflow-hidden">
         <img
           src={heroCar}
-          alt="Luxury car at dusk"
+          alt="Quality used cars for sale at PM Car Sales, Mombasa Kenya"
           width={1920}
           height={1080}
           className="absolute inset-0 h-full w-full object-cover"

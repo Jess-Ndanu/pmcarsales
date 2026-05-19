@@ -71,7 +71,7 @@ export function Header() {
           <Link to="/" className="flex items-center gap-3 group" aria-label={DEALER_NAME}>
             <img
               src={logo}
-              alt={`${DEALER_NAME} logo`}
+              alt={`${DEALER_NAME} logo — Used Car Dealer in Mombasa Kenya`}
               className="h-11 w-auto md:h-14 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-[-3deg]"
             />
             <div className="hidden sm:flex flex-col leading-tight">

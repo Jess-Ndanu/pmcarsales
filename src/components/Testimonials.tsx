@@ -48,7 +48,7 @@ export function Testimonials() {
               </p>
               <div className="mt-5 flex items-center gap-3 pt-5 border-t border-border">
                 {t.avatar_url ? (
-                  <img src={t.avatar_url} alt="" className="h-10 w-10 rounded-full object-cover" />
+                  <img src={t.avatar_url} alt={`${t.author_name} — PM Car Sales customer`} className="h-10 w-10 rounded-full object-cover" />
                 ) : (
                   <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
                     {t.author_name.charAt(0)}

@@ -24,7 +24,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 md:px-10 py-14 grid gap-10 md:grid-cols-12">
         {/* Brand */}
         <div className="md:col-span-4">
-          <img src={logo} alt={`${DEALER_NAME} logo`} className="h-20 w-auto" />
+          <img src={logo} alt={`${DEALER_NAME} logo — Used Car Dealer in Mombasa Kenya`} className="h-20 w-auto" />
           <p className="mt-4 text-sm text-foreground max-w-sm leading-relaxed">
             {DEALER_TAGLINE}. Hand-picked vehicles, transparent pricing, and trusted service in Mombasa.
           </p>
