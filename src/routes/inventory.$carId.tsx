@@ -165,7 +165,7 @@ function CarDetailPage() {
                     onClick={() => setIdx(i)}
                     className={`overflow-hidden rounded-md aspect-[4/3] border-2 transition ${i === idx ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"}`}
                   >
-                    <img src={src} alt="" className="h-full w-full object-cover" />
+                    <img src={src} alt={`${car.year} ${car.make} ${car.model} — photo ${i + 1}`} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>
