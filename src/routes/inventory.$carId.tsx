@@ -225,7 +225,7 @@ function CarDetailPage() {
               <h2 className="font-display text-2xl font-bold mb-4">Premium Features</h2>
               <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {car.features.map((f: string) => (
+                  {(car.features as string[]).map((f) => (
                     <div key={f} className="flex items-center gap-2 text-sm font-medium text-foreground">
                       <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
                         <Check className="h-3 w-3" strokeWidth={3} />
@@ -243,7 +243,7 @@ function CarDetailPage() {
               <h2 className="font-display text-2xl font-bold mb-4">Safety Features</h2>
               <div className="rounded-2xl bg-primary/5 border border-primary/15 p-6 md:p-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {car.safety_features.map((f: string) => (
+                  {(car.safety_features as string[]).map((f) => (
                     <div key={f} className="flex items-center gap-2 text-sm font-medium text-foreground">
                       <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
                         <Check className="h-3 w-3" strokeWidth={3} />
