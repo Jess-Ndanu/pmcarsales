@@ -59,10 +59,15 @@ export function Footer() {
         {/* Visit */}
         <div className="md:col-span-3">
           <h4 className="text-sm font-bold mb-4 uppercase tracking-wider text-heading">Visit</h4>
-          <p className="flex items-start gap-3 text-sm text-foreground">
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Ivory+Building+Moi+Avenue+Mombasa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 text-sm text-foreground hover:text-primary transition"
+          >
             <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground shrink-0" />
             <span>{DEALER_ADDRESS}</span>
-          </p>
+          </a>
         </div>
 
         {/* Contact */}
