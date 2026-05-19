@@ -1,6 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const FAQS = [
+export const FAQS = [
   {
     q: "Are your vehicles inspected before sale?",
     a: "Yes, absolutely. Every vehicle in our yard undergoes a rigorous multi-point inspection covering the engine, transmission, suspension, electronics, and braking systems. For imported units, we also verify official QISJ/JEVIC inspection certificates to guarantee genuine mileage and structural integrity.",
