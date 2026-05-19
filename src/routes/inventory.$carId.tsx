@@ -139,7 +139,7 @@ function CarDetailPage() {
             <div className="relative overflow-hidden rounded-2xl bg-muted aspect-[16/10]">
               <img
                 src={images[idx]}
-                alt={`${car.year} ${car.make} ${car.model}`}
+                alt={`${car.year} ${car.make} ${car.model} for sale in Mombasa Kenya — PM Car Sales`}
                 className="h-full w-full object-cover transition-opacity duration-500"
               />
               {images.length > 1 && (
