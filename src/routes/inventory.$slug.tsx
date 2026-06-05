@@ -5,7 +5,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMiles, formatPrice } from "@/lib/format";
 
-export const Route = createFileRoute("/inventory/$carId")({
+export const Route = createFileRoute("/inventory/$slug")({
   loader: async ({ params }) => {
     const { data, error } = await supabase
       .from("cars")
