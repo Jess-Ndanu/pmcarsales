@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { adminBootstrapped } from "@/server/admin.functions";
+import { adminBootstrapped } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
