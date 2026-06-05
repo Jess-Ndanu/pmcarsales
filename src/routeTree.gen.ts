@@ -16,7 +16,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as InventoryIndexRouteImport } from './routes/inventory.index'
-import { Route as InventoryCarIdRouteImport } from './routes/inventory.$carId'
+import { Route as InventorySlugRouteImport } from './routes/inventory.$slug'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -54,9 +54,9 @@ const InventoryIndexRoute = InventoryIndexRouteImport.update({
   path: '/',
   getParentRoute: () => InventoryRoute,
 } as any)
-const InventoryCarIdRoute = InventoryCarIdRouteImport.update({
-  id: '/$carId',
-  path: '/$carId',
+const InventorySlugRoute = InventorySlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => InventoryRoute,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -73,7 +73,7 @@ export interface FileRoutesByFullPath {
   '/inventory': typeof InventoryRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
-  '/inventory/$carId': typeof InventoryCarIdRoute
+  '/inventory/$slug': typeof InventorySlugRoute
   '/inventory/': typeof InventoryIndexRoute
 }
 export interface FileRoutesByTo {
@@ -83,7 +83,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
-  '/inventory/$carId': typeof InventoryCarIdRoute
+  '/inventory/$slug': typeof InventorySlugRoute
   '/inventory': typeof InventoryIndexRoute
 }
 export interface FileRoutesById {
@@ -95,7 +95,7 @@ export interface FileRoutesById {
   '/inventory': typeof InventoryRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/dashboard': typeof AdminDashboardRoute
-  '/inventory/$carId': typeof InventoryCarIdRoute
+  '/inventory/$slug': typeof InventorySlugRoute
   '/inventory/': typeof InventoryIndexRoute
 }
 export interface FileRouteTypes {
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/inventory'
     | '/sitemap.xml'
     | '/admin/dashboard'
-    | '/inventory/$carId'
+    | '/inventory/$slug'
     | '/inventory/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -118,7 +118,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/sitemap.xml'
     | '/admin/dashboard'
-    | '/inventory/$carId'
+    | '/inventory/$slug'
     | '/inventory'
   id:
     | '__root__'
@@ -129,7 +129,7 @@ export interface FileRouteTypes {
     | '/inventory'
     | '/sitemap.xml'
     | '/admin/dashboard'
-    | '/inventory/$carId'
+    | '/inventory/$slug'
     | '/inventory/'
   fileRoutesById: FileRoutesById
 }
@@ -193,11 +193,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InventoryIndexRouteImport
       parentRoute: typeof InventoryRoute
     }
-    '/inventory/$carId': {
-      id: '/inventory/$carId'
-      path: '/$carId'
-      fullPath: '/inventory/$carId'
-      preLoaderRoute: typeof InventoryCarIdRouteImport
+    '/inventory/$slug': {
+      id: '/inventory/$slug'
+      path: '/$slug'
+      fullPath: '/inventory/$slug'
+      preLoaderRoute: typeof InventorySlugRouteImport
       parentRoute: typeof InventoryRoute
     }
     '/admin/dashboard': {
@@ -221,12 +221,12 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface InventoryRouteChildren {
-  InventoryCarIdRoute: typeof InventoryCarIdRoute
+  InventorySlugRoute: typeof InventorySlugRoute
   InventoryIndexRoute: typeof InventoryIndexRoute
 }
 
 const InventoryRouteChildren: InventoryRouteChildren = {
-  InventoryCarIdRoute: InventoryCarIdRoute,
+  InventorySlugRoute: InventorySlugRoute,
   InventoryIndexRoute: InventoryIndexRoute,
 }
 

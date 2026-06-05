@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
+import { carSlug } from "@/lib/slug";
 
 const SITE_URL = "https://pmcarsales.lovable.app";
 
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const { data: cars } = await supabase
           .from("cars")
-          .select("id, updated_at")
+          .select("id, year, make, model, updated_at")
           .eq("sold", false)
           .order("updated_at", { ascending: false })
           .limit(1000);
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ),
           ...(cars ?? []).map(
             (c) =>
-              `<url><loc>${SITE_URL}/inventory/${c.id}</loc><lastmod>${(c.updated_at ?? today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`
+              `<url><loc>${SITE_URL}/inventory/${carSlug(c)}</loc><lastmod>${(c.updated_at ?? today).split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`
           ),
         ];
 

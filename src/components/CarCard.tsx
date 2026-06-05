@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { MapPin, Wallet, HandCoins, Landmark } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 import { formatPrice } from "@/lib/format";
+import { carSlug } from "@/lib/slug";
 
 type Car = Tables<"cars">;
 
@@ -13,8 +14,8 @@ export function CarCard({ car }: { car: Car }) {
 
   return (
     <Link
-      to="/inventory/$carId"
-      params={{ carId: car.id }}
+      to="/inventory/$slug"
+      params={{ slug: carSlug(car) }}
       className="car-card group flex h-full flex-col overflow-hidden rounded-lg bg-card border border-border shadow-card"
       style={{ borderRadius: "8px" }}
     >

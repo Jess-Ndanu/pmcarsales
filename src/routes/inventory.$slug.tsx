@@ -3,26 +3,78 @@ import { useState } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight, Check, Wallet, HandCoins, Landmark } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { supabase } from "@/integrations/supabase/client";
-import { formatMiles, formatPrice } from "@/lib/format";
+import { formatMiles, formatPrice, DEALER_PHONE } from "@/lib/format";
+import { carSlug, isUuid } from "@/lib/slug";
 
 export const Route = createFileRoute("/inventory/$slug")({
   loader: async ({ params }) => {
+    const slug = params.slug;
+
+    // Legacy: support old UUID-based URLs
+    if (isUuid(slug)) {
+      const { data, error } = await supabase
+        .from("cars")
+        .select("*")
+        .eq("id", slug)
+        .maybeSingle();
+      if (error) throw error;
+      if (!data) throw notFound();
+      return { car: data, canonicalSlug: carSlug(data) };
+    }
+
+    // Parse year prefix: "2020-toyota-prado"
+    const m = slug.match(/^(\d{4})-(.+)$/);
+    if (!m) throw notFound();
+    const year = Number(m[1]);
+
     const { data, error } = await supabase
       .from("cars")
       .select("*")
-      .eq("id", params.carId)
-      .maybeSingle();
+      .eq("year", year)
+      .limit(50);
     if (error) throw error;
-    if (!data) throw notFound();
-    return { car: data };
+
+    const match = (data ?? []).find((c) => carSlug(c) === slug);
+    if (!match) throw notFound();
+    return { car: match, canonicalSlug: slug };
   },
   head: ({ loaderData }) => {
     const car = loaderData?.car;
     if (!car) return {};
-    const title = `${car.year} ${car.make} ${car.model} for sale in Mombasa — PM Car Sales`;
-    const description = `${car.year} ${car.make} ${car.model} • ${formatMiles(car.mileage)} • ${formatPrice(Number(car.price))}. ${car.description?.slice(0, 120) ?? "Available now at PM Car Sales Mombasa."}`;
+    const title = `${car.year} ${car.make} ${car.model} for Sale in Mombasa — PM Car Sales`;
+    const description = `${car.year} ${car.make} ${car.model} available at PM Car Sales Mombasa. ${formatMiles(car.mileage)}, priced at ${formatPrice(Number(car.price))}. Call ${DEALER_PHONE} or WhatsApp to inquire.`;
     const image = car.images?.[0] ?? "https://pmcarsales.lovable.app/favicon.ico";
-    const url = `https://pmcarsales.lovable.app/inventory/${car.id}`;
+    const url = `https://pmcarsales.lovable.app/inventory/${loaderData.canonicalSlug}`;
+    const productJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: `${car.year} ${car.make} ${car.model}`,
+      description: car.description ?? `${car.year} ${car.make} ${car.model} for sale at PM Car Sales Mombasa.`,
+      image: car.images?.length ? car.images : [image],
+      brand: { "@type": "Brand", name: car.make },
+      sku: car.id,
+      mpn: car.id,
+      offers: {
+        "@type": "Offer",
+        url,
+        priceCurrency: "KES",
+        price: Number(car.price),
+        availability: car.sold ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+        itemCondition: "https://schema.org/UsedCondition",
+        seller: {
+          "@type": "AutoDealer",
+          name: "PM Car Sales",
+          telephone: "+254712604775",
+          email: "pmcarsalesmombasa@gmail.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Ivory Building, Moi Avenue",
+            addressLocality: "Mombasa",
+            addressCountry: "KE",
+          },
+        },
+      },
+    };
     const vehicleJsonLd = {
       "@context": "https://schema.org",
       "@type": "Vehicle",
@@ -35,18 +87,8 @@ export const Route = createFileRoute("/inventory/$slug")({
       fuelType: car.fuel_type ?? undefined,
       vehicleTransmission: car.transmission ?? undefined,
       color: car.color ?? undefined,
-      vehicleEngine: car.engine_size ? { "@type": "EngineSpecification", engineDisplacement: car.engine_size } : undefined,
       image: car.images ?? [],
-      description: car.description ?? undefined,
       url,
-      offers: {
-        "@type": "Offer",
-        price: Number(car.price),
-        priceCurrency: "KES",
-        availability: car.sold ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
-        url,
-        seller: { "@type": "AutoDealer", name: "PM Car Sales", telephone: "+254712604775" },
-      },
     };
     return {
       meta: [
@@ -62,7 +104,10 @@ export const Route = createFileRoute("/inventory/$slug")({
         { name: "twitter:image", content: image },
       ],
       links: [{ rel: "canonical", href: url }],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify(vehicleJsonLd) }],
+      scripts: [
+        { type: "application/ld+json", children: JSON.stringify(productJsonLd) },
+        { type: "application/ld+json", children: JSON.stringify(vehicleJsonLd) },
+      ],
     };
   },
   component: CarDetailPage,
@@ -176,8 +221,9 @@ function CarDetailPage() {
           <aside className="space-y-6">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-primary">{car.year} · {car.body_type ?? "Vehicle"}</p>
-              <h1 className="mt-2 font-display text-3xl md:text-4xl font-bold">{car.make} {car.model}</h1>
+              <h1 className="mt-2 font-display text-3xl md:text-4xl font-bold">{car.year} {car.make} {car.model}</h1>
               <p className="mt-2 font-display text-2xl md:text-3xl font-bold text-foreground">{formatPrice(Number(car.price))}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{formatMiles(car.mileage)} · {car.fuel_type ?? "—"} · {car.transmission ?? "—"}</p>
             </div>
 
             {/* Payment options */}
