@@ -1,0 +1,1 @@
+ALTER TABLE public.inquiries ADD CONSTRAINT inquiries_phone_max_len CHECK (phone IS NULL OR length(phone) <= 40);
